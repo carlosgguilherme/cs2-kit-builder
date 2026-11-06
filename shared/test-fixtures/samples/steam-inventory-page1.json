@@ -1,0 +1,180 @@
+{
+ "_note": "Synthetic sample in the documented inventory format (assets + descriptions + asset_properties). Not a recording.",
+ "assets": [
+  {
+   "appid": 730,
+   "contextid": "2",
+   "assetid": "1001",
+   "classid": "11",
+   "instanceid": "0",
+   "amount": "1"
+  },
+  {
+   "appid": 730,
+   "contextid": "2",
+   "assetid": "1002",
+   "classid": "22",
+   "instanceid": "7",
+   "amount": "1"
+  },
+  {
+   "appid": 730,
+   "contextid": "2",
+   "assetid": "1003",
+   "classid": "33",
+   "instanceid": "0",
+   "amount": "1"
+  }
+ ],
+ "descriptions": [
+  {
+   "appid": 730,
+   "classid": "11",
+   "instanceid": "0",
+   "icon_url": "ICON11",
+   "tradable": 1,
+   "marketable": 1,
+   "name": "AK-47 | Redline",
+   "market_hash_name": "AK-47 | Redline (Field-Tested)",
+   "type": "Classified Rifle",
+   "descriptions": [
+    {
+     "type": "html",
+     "value": "Exterior: Field-Tested"
+    },
+    {
+     "type": "html",
+     "value": "<br><div id=\"sticker_info\" name=\"sticker_info\" title=\"Sticker\" style=\"border: 2px solid rgb(102, 102, 102); border-radius: 6px; width=100; margin:4px; padding:8px;\"><center><img width=64 height=48 src=\"https://example.invalid/sticker-a.png\"><img width=64 height=48 src=\"https://example.invalid/sticker-b.png\"><br>Sticker: Crown (Foil), Howling Dawn</center></div>"
+    },
+    {
+     "type": "html",
+     "value": "<br><div id=\"keychain_info\" name=\"keychain_info\" title=\"Charm\"><center><img width=64 height=48 src=\"https://example.invalid/charm.png\"><br>Charm: Lil' Squirt</center></div>"
+    }
+   ],
+   "actions": [
+    {
+     "link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S%owner_steamid%A%assetid%D4375617890163937543",
+     "name": "Inspect in Game..."
+    }
+   ],
+   "fraudwarnings": [
+    "Name Tag: ''My Rifle''"
+   ],
+   "tags": [
+    {
+     "category": "Type",
+     "internal_name": "CSGO_Type_Rifle",
+     "localized_category_name": "Type",
+     "localized_tag_name": "Rifle"
+    },
+    {
+     "category": "Weapon",
+     "internal_name": "weapon_ak47",
+     "localized_category_name": "Weapon",
+     "localized_tag_name": "AK-47"
+    },
+    {
+     "category": "Quality",
+     "internal_name": "normal",
+     "localized_category_name": "Category",
+     "localized_tag_name": "Normal"
+    },
+    {
+     "category": "Rarity",
+     "internal_name": "Rarity_Legendary_Weapon",
+     "localized_category_name": "Quality",
+     "localized_tag_name": "Classified",
+     "color": "d32ce6"
+    },
+    {
+     "category": "Exterior",
+     "internal_name": "WearCategory2",
+     "localized_category_name": "Exterior",
+     "localized_tag_name": "Field-Tested"
+    }
+   ]
+  },
+  {
+   "appid": 730,
+   "classid": "22",
+   "instanceid": "7",
+   "icon_url": "ICON22",
+   "tradable": 0,
+   "marketable": 1,
+   "name": "★ StatTrak™ Karambit | Doppler",
+   "market_hash_name": "★ StatTrak™ Karambit | Doppler (Factory New)",
+   "type": "★ StatTrak™ Covert Knife",
+   "actions": [
+    {
+     "link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S%owner_steamid%A%assetid%D123",
+     "name": "Inspect in Game..."
+    }
+   ],
+   "tags": [
+    {
+     "category": "Type",
+     "internal_name": "CSGO_Type_Knife",
+     "localized_tag_name": "Knife"
+    },
+    {
+     "category": "Quality",
+     "internal_name": "strange",
+     "localized_tag_name": "StatTrak™"
+    },
+    {
+     "category": "Rarity",
+     "internal_name": "Rarity_Ancient_Weapon",
+     "localized_tag_name": "Covert",
+     "color": "eb4b4b"
+    },
+    {
+     "category": "Exterior",
+     "internal_name": "WearCategory0",
+     "localized_tag_name": "Factory New"
+    }
+   ]
+  },
+  {
+   "appid": 730,
+   "classid": "33",
+   "instanceid": "0",
+   "icon_url": "ICON33",
+   "tradable": 1,
+   "marketable": 0,
+   "name": "Operation Riptide Case",
+   "market_hash_name": "Operation Riptide Case",
+   "type": "Base Grade Container",
+   "tags": [
+    {
+     "category": "Type",
+     "internal_name": "CSGO_Type_WeaponCase",
+     "localized_tag_name": "Container"
+    }
+   ]
+  }
+ ],
+ "asset_properties": [
+  {
+   "appid": 730,
+   "contextid": "2",
+   "assetid": "1001",
+   "asset_properties": [
+    {
+     "propertyid": 1,
+     "int_value": "661",
+     "name": "Pattern Template"
+    },
+    {
+     "propertyid": 2,
+     "float_value": "0.2512",
+     "name": "Wear Rating"
+    }
+   ]
+  }
+ ],
+ "more_items": 1,
+ "last_assetid": "1003",
+ "total_inventory_count": 5,
+ "success": 1,
+ "rwgrsn": -2
+}

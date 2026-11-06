@@ -1,0 +1,243 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-06T13:05:04Z",
+ "catalogSource": "ByMykel/CSGO-API skins.json",
+ "colorSpace": "OKLab",
+ "count": 6,
+ "skins": [
+  {
+   "skinId": "skin-525ac56c082c",
+   "name": "★ Karambit | Doppler",
+   "phase": "Black Pearl",
+   "colors": [
+    {
+     "hex": "#4c4f52",
+     "l": 0.4258,
+     "a": -0.0025,
+     "b": -0.0055,
+     "weight": 0.6449
+    },
+    {
+     "hex": "#3f3e5c",
+     "l": 0.3788,
+     "a": 0.0138,
+     "b": -0.0491,
+     "weight": 0.1392
+    },
+    {
+     "hex": "#e3ecf4",
+     "l": 0.9391,
+     "a": -0.0062,
+     "b": -0.0122,
+     "weight": 0.1377
+    },
+    {
+     "hex": "#b2c4f1",
+     "l": 0.8223,
+     "a": -0.0024,
+     "b": -0.0665,
+     "weight": 0.0782
+    }
+   ],
+   "meanLightness": 0.5209,
+   "meanChroma": 0.0181,
+   "meanHue": 267.6,
+   "isMultiColor": true
+  },
+  {
+   "skinId": "skin-6370d1af59f7",
+   "name": "AK-47 | AUTOEXEC",
+   "phase": null,
+   "colors": [
+    {
+     "hex": "#595652",
+     "l": 0.453,
+     "a": 0.002,
+     "b": 0.007,
+     "weight": 0.6448
+    },
+    {
+     "hex": "#cfcdcc",
+     "l": 0.8491,
+     "a": 0.0014,
+     "b": 0.0015,
+     "weight": 0.1545
+    },
+    {
+     "hex": "#c4bbdf",
+     "l": 0.8122,
+     "a": 0.0225,
+     "b": -0.0449,
+     "weight": 0.1042
+    },
+    {
+     "hex": "#6c83b1",
+     "l": 0.61,
+     "a": -0.0078,
+     "b": -0.0748,
+     "weight": 0.0965
+    }
+   ],
+   "meanLightness": 0.5668,
+   "meanChroma": 0.0175,
+   "meanHue": 293.4,
+   "isMultiColor": false
+  },
+  {
+   "skinId": "skin-91a429af4a60",
+   "name": "AK-47 | Redline",
+   "phase": null,
+   "colors": [
+    {
+     "hex": "#22201e",
+     "l": 0.2459,
+     "a": 0.0007,
+     "b": 0.0049,
+     "weight": 0.7515
+    },
+    {
+     "hex": "#42423f",
+     "l": 0.3772,
+     "a": -0.0001,
+     "b": 0.005,
+     "weight": 0.2037
+    },
+    {
+     "hex": "#65241e",
+     "l": 0.3575,
+     "a": 0.0845,
+     "b": 0.0446,
+     "weight": 0.0448
+    }
+   ],
+   "meanLightness": 0.2776,
+   "meanChroma": 0.009,
+   "meanHue": 57.4,
+   "isMultiColor": false
+  },
+  {
+   "skinId": "skin-a7465b45d267",
+   "name": "★ Karambit | Doppler",
+   "phase": "Phase 1",
+   "colors": [
+    {
+     "hex": "#515455",
+     "l": 0.4428,
+     "a": -0.0033,
+     "b": -0.0028,
+     "weight": 0.5671
+    },
+    {
+     "hex": "#f1f4f8",
+     "l": 0.9658,
+     "a": -0.0015,
+     "b": -0.0055,
+     "weight": 0.1751
+    },
+    {
+     "hex": "#504774",
+     "l": 0.4266,
+     "a": 0.0275,
+     "b": -0.0694,
+     "weight": 0.1043
+    },
+    {
+     "hex": "#8181bd",
+     "l": 0.6276,
+     "a": 0.0213,
+     "b": -0.0866,
+     "weight": 0.0807
+    },
+    {
+     "hex": "#b9cef8",
+     "l": 0.8506,
+     "a": -0.0066,
+     "b": -0.0618,
+     "weight": 0.0728
+    }
+   ],
+   "meanLightness": 0.5773,
+   "meanChroma": 0.023,
+   "meanHue": 275.3,
+   "isMultiColor": true
+  },
+  {
+   "skinId": "skin-e757fd7191f9",
+   "name": "★ Hand Wraps | Spruce DDPAT",
+   "phase": null,
+   "colors": [
+    {
+     "hex": "#595f51",
+     "l": 0.4755,
+     "a": -0.013,
+     "b": 0.0189,
+     "weight": 0.4779
+    },
+    {
+     "hex": "#cad0bc",
+     "l": 0.8477,
+     "a": -0.0153,
+     "b": 0.0246,
+     "weight": 0.2749
+    },
+    {
+     "hex": "#dde9c7",
+     "l": 0.9158,
+     "a": -0.0249,
+     "b": 0.0387,
+     "weight": 0.1632
+    },
+    {
+     "hex": "#a5b59a",
+     "l": 0.7538,
+     "a": -0.0279,
+     "b": 0.0307,
+     "weight": 0.084
+    }
+   ],
+   "meanLightness": 0.6731,
+   "meanChroma": 0.0299,
+   "meanHue": 124.3,
+   "isMultiColor": false
+  },
+  {
+   "skinId": "skin-vanilla-weapon_bayonet",
+   "name": "★ Bayonet",
+   "phase": null,
+   "colors": [
+    {
+     "hex": "#767c76",
+     "l": 0.5792,
+     "a": -0.0098,
+     "b": 0.007,
+     "weight": 0.6623
+    },
+    {
+     "hex": "#c8d1d1",
+     "l": 0.8543,
+     "a": -0.0099,
+     "b": -0.0029,
+     "weight": 0.2144
+    },
+    {
+     "hex": "#8f9171",
+     "l": 0.6455,
+     "a": -0.0151,
+     "b": 0.0424,
+     "weight": 0.0801
+    },
+    {
+     "hex": "#b8b88f",
+     "l": 0.7725,
+     "a": -0.0168,
+     "b": 0.0534,
+     "weight": 0.0432
+    }
+   ],
+   "meanLightness": 0.6518,
+   "meanChroma": 0.0162,
+   "meanHue": 137.3,
+   "isMultiColor": false
+  }
+ ]
+}

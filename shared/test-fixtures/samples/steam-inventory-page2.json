@@ -1,0 +1,84 @@
+{
+ "_note": "Synthetic second page.",
+ "assets": [
+  {
+   "appid": 730,
+   "contextid": "2",
+   "assetid": "1004",
+   "classid": "11",
+   "instanceid": "0",
+   "amount": "1"
+  }
+ ],
+ "descriptions": [
+  {
+   "appid": 730,
+   "classid": "11",
+   "instanceid": "0",
+   "icon_url": "ICON11",
+   "tradable": 1,
+   "marketable": 1,
+   "name": "AK-47 | Redline",
+   "market_hash_name": "AK-47 | Redline (Field-Tested)",
+   "type": "Classified Rifle",
+   "descriptions": [
+    {
+     "type": "html",
+     "value": "Exterior: Field-Tested"
+    },
+    {
+     "type": "html",
+     "value": "<br><div id=\"sticker_info\" name=\"sticker_info\" title=\"Sticker\" style=\"border: 2px solid rgb(102, 102, 102); border-radius: 6px; width=100; margin:4px; padding:8px;\"><center><img width=64 height=48 src=\"https://example.invalid/sticker-a.png\"><img width=64 height=48 src=\"https://example.invalid/sticker-b.png\"><br>Sticker: Crown (Foil), Howling Dawn</center></div>"
+    },
+    {
+     "type": "html",
+     "value": "<br><div id=\"keychain_info\" name=\"keychain_info\" title=\"Charm\"><center><img width=64 height=48 src=\"https://example.invalid/charm.png\"><br>Charm: Lil' Squirt</center></div>"
+    }
+   ],
+   "actions": [
+    {
+     "link": "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S%owner_steamid%A%assetid%D4375617890163937543",
+     "name": "Inspect in Game..."
+    }
+   ],
+   "fraudwarnings": [
+    "Name Tag: ''My Rifle''"
+   ],
+   "tags": [
+    {
+     "category": "Type",
+     "internal_name": "CSGO_Type_Rifle",
+     "localized_category_name": "Type",
+     "localized_tag_name": "Rifle"
+    },
+    {
+     "category": "Weapon",
+     "internal_name": "weapon_ak47",
+     "localized_category_name": "Weapon",
+     "localized_tag_name": "AK-47"
+    },
+    {
+     "category": "Quality",
+     "internal_name": "normal",
+     "localized_category_name": "Category",
+     "localized_tag_name": "Normal"
+    },
+    {
+     "category": "Rarity",
+     "internal_name": "Rarity_Legendary_Weapon",
+     "localized_category_name": "Quality",
+     "localized_tag_name": "Classified",
+     "color": "d32ce6"
+    },
+    {
+     "category": "Exterior",
+     "internal_name": "WearCategory2",
+     "localized_category_name": "Exterior",
+     "localized_tag_name": "Field-Tested"
+    }
+   ]
+  }
+ ],
+ "total_inventory_count": 5,
+ "success": 1
+}
