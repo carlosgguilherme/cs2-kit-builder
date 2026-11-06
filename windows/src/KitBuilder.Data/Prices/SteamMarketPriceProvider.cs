@@ -47,11 +47,12 @@ public sealed class SteamMarketPriceProvider(HttpClient http, LocalDatabase db, 
         await Task.Yield();
         using var c = db.Open();
         using var cmd = c.CreateCommand();
-        cmd.CommandText = "SELECT market_hash_name, price_cents, currency, listings, source, fetched_at FROM prices";
+        cmd.CommandText = "SELECT market_hash_name, price_cents, currency, listings, source, fetched_at, volume_24h FROM prices";
         using var r = cmd.ExecuteReader();
         while (r.Read())
         {
-            var q = ToQuote(r.GetString(0), r.GetInt64(1), r.GetInt32(2), r.IsDBNull(3) ? null : r.GetInt32(3), null,
+            var q = ToQuote(r.GetString(0), r.GetInt64(1), r.GetInt32(2), r.IsDBNull(3) ? null : r.GetInt32(3),
+                r.IsDBNull(6) ? null : r.GetInt32(6),
                 r.GetString(4), DateTimeOffset.FromUnixTimeSeconds(r.GetInt64(5)), fx, now);
             if (q is not null)
             {
@@ -78,7 +79,7 @@ public sealed class SteamMarketPriceProvider(HttpClient http, LocalDatabase db, 
         }
 
         var now = clock.GetUtcNow();
-        Upsert([(marketHashName, lowest, options.SteamCurrency, (int?)null)], "steam_priceoverview", now);
+        Upsert([(marketHashName, lowest, options.SteamCurrency, (int?)null, ov.Volume)], "steam_priceoverview", now);
         return new PriceQuote(marketHashName, lowest, options.SteamCurrency, null, ov.Volume, "steam_priceoverview", now, false);
     }
 
@@ -111,7 +112,8 @@ public sealed class SteamMarketPriceProvider(HttpClient http, LocalDatabase db, 
                 throw;
             }
 
-            Upsert(page.Rows.Select(r => (r.HashName, r.SellPriceCents, r.Currency, (int?)r.Listings)), "steam_search", clock.GetUtcNow());
+            Upsert(page.Rows.Select(r => (r.HashName, r.SellPriceCents, r.Currency, (int?)r.Listings, (int?)null)), "steam_search",
+                clock.GetUtcNow());
             state = state with { Start = state.Start + 10, Total = page.TotalCount };
             SaveCrawl(state);
             progress?.Report(new RefreshProgress(Math.Min(state.Start, state.Total), state.Total, null));
@@ -216,11 +218,13 @@ public sealed class SteamMarketPriceProvider(HttpClient http, LocalDatabase db, 
             now - fetchedAt > options.PriceTtl);
     }
 
-    private void Upsert(IEnumerable<(string Name, long Cents, int Currency, int? Listings)> rows, string source, DateTimeOffset at)
+    /// <summary>Null listings/volume keep the stored value (search rows have no volume, priceoverview has no listings).</summary>
+    private void Upsert(IEnumerable<(string Name, long Cents, int Currency, int? Listings, int? Volume)> rows, string source,
+        DateTimeOffset at)
     {
         using var c = db.Open();
         using var tx = c.BeginTransaction();
-        foreach (var (name, cents, currency, listings) in rows)
+        foreach (var (name, cents, currency, listings, volume) in rows)
         {
             if (cents <= 0)
             {
@@ -228,11 +232,12 @@ public sealed class SteamMarketPriceProvider(HttpClient http, LocalDatabase db, 
             }
 
             LocalDatabase.Exec(c, """
-                INSERT INTO prices(market_hash_name, price_cents, currency, listings, source, fetched_at)
-                VALUES ($n, $p, $c, $l, $s, $t)
+                INSERT INTO prices(market_hash_name, price_cents, currency, listings, source, fetched_at, volume_24h)
+                VALUES ($n, $p, $c, $l, $s, $t, $v)
                 ON CONFLICT(market_hash_name) DO UPDATE SET price_cents = $p, currency = $c,
-                  listings = COALESCE($l, listings), source = $s, fetched_at = $t
-                """, ("$n", name), ("$p", cents), ("$c", currency), ("$l", listings), ("$s", source), ("$t", at.ToUnixTimeSeconds()));
+                  listings = COALESCE($l, listings), source = $s, fetched_at = $t, volume_24h = COALESCE($v, volume_24h)
+                """, ("$n", name), ("$p", cents), ("$c", currency), ("$l", listings), ("$s", source), ("$t", at.ToUnixTimeSeconds()),
+                ("$v", volume));
         }
 
         tx.Commit();

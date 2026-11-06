@@ -49,4 +49,35 @@ public class RegressionTests
         await service.LoadItemsAsync();
         Assert.Equal(2, stub.Requests.Count(r => r.RequestUri!.AbsolutePath.Contains("/pt-BR/", StringComparison.Ordinal)));
     }
+
+    [Fact]
+    public async Task PriceOverviewVolumeIsKeptInTheCache()
+    {
+        var db = Fx.TempDb();
+        var stub = new StubHandler(_ => StubHandler.Json(Fx.Text("recorded/steam-priceoverview-brl.2026-11-06.json")));
+        var provider = new SteamMarketPriceProvider(new HttpClient(stub), db, new DataOptions(), new ManualClock(T0));
+        const string name = "AK-47 | Redline (Field-Tested)";
+        Assert.Equal(56, (await provider.GetAsync(name))!.Volume24h);
+        Assert.Equal(56, (await provider.GetCachedAsync())[name].Volume24h);
+    }
+
+    [Fact]
+    public void OlderDatabaseGetsTheVolumeColumn()
+    {
+        var path = Path.Combine(Path.GetTempPath(), "kitbuilder-tests", Guid.NewGuid().ToString("N"), "old.db");
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+        using (var c = new Microsoft.Data.Sqlite.SqliteConnection("Data Source=" + path))
+        {
+            c.Open();
+            Storage.LocalDatabase.Exec(c, "CREATE TABLE prices (market_hash_name TEXT PRIMARY KEY, price_cents INTEGER NOT NULL, " +
+                "currency INTEGER NOT NULL, listings INTEGER, source TEXT NOT NULL, fetched_at INTEGER NOT NULL)");
+        }
+
+        Microsoft.Data.Sqlite.SqliteConnection.ClearAllPools();
+        var db = new Storage.LocalDatabase(path);
+        using var conn = db.Open();
+        using var cmd = conn.CreateCommand();
+        cmd.CommandText = "SELECT COUNT(*) FROM pragma_table_info('prices') WHERE name = 'volume_24h'";
+        Assert.Equal(1L, (long)cmd.ExecuteScalar()!);
+    }
 }

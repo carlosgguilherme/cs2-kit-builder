@@ -20,13 +20,27 @@ public sealed class LocalDatabase
               currency INTEGER NOT NULL,
               listings INTEGER,
               source TEXT NOT NULL,
-              fetched_at INTEGER NOT NULL);
+              fetched_at INTEGER NOT NULL,
+              volume_24h INTEGER);
             CREATE TABLE IF NOT EXISTS kv (key TEXT PRIMARY KEY, value TEXT NOT NULL, updated_at INTEGER NOT NULL);
             CREATE TABLE IF NOT EXISTS http_cache (
               url TEXT PRIMARY KEY, etag TEXT, last_modified TEXT, file TEXT NOT NULL, checked_at INTEGER NOT NULL);
             CREATE TABLE IF NOT EXISTS inventories (
               steam_id TEXT PRIMARY KEY, json TEXT NOT NULL, fetched_at INTEGER NOT NULL);
             """);
+        AddColumnIfMissing(c, "prices", "volume_24h", "INTEGER");
+    }
+
+    /// <summary>In-place migration for databases created by older versions.</summary>
+    private static void AddColumnIfMissing(SqliteConnection c, string table, string column, string type)
+    {
+        using var cmd = c.CreateCommand();
+        cmd.CommandText = $"SELECT COUNT(*) FROM pragma_table_info('{table}') WHERE name = $c";
+        cmd.Parameters.AddWithValue("$c", column);
+        if ((long)cmd.ExecuteScalar()! == 0)
+        {
+            Exec(c, $"ALTER TABLE {table} ADD COLUMN {column} {type}");
+        }
     }
 
     public SqliteConnection Open()
