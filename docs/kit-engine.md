@@ -65,6 +65,11 @@ tie-breaks use ordinal comparison of `itemId`; prices are integer cents.
 
 ## Measured performance
 
-Synthetic 21,000-item catalog, 7 slots: ~110 ms Release / ~300 ms Debug (4 vCPU). Real catalog with real
-colors (16k priced variants): 44 ms for "R$ 200, main items without knife/gloves, red" and 77 ms for a
-full 7-slot kit.
+Synthetic 21,000-item catalog, 7 slots: ~53 ms Release / ~126 ms Debug (4 vCPU Linux); GitHub's
+Windows runner is about 3x slower. Real catalog with real colors (16k priced variants): 9 ms for
+"R$ 200, main items without knife/gloves, red".
+
+Implementation notes (no effect on results): beam states are linked to their parent instead of
+copying the pick array; harmony between pruned candidates is precomputed per slot pair; each cost
+bucket keeps its best 32 states with an insertion-ordered bounded selection (same result as a stable
+sort followed by Take).

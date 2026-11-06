@@ -297,9 +297,25 @@ public sealed class KitEngine
         return keep.OrderBy(x => x.Price).ThenBy(x => x.C.ItemId, StringComparer.Ordinal).ToList();
     }
 
-    private sealed record BeamState(Scored?[] Picks, long Cost, double SlotSum, double HarmonySum, int Pairs)
+    /// <summary>Beam node: the chosen candidate of one slot plus a link to the previous choices.</summary>
+    private sealed class BeamNode(BeamNode? parent, int candidate, long cost, double slotSum, double harmonySum, int pairs)
     {
-        public double Key => SlotSum + 0.2 * (Pairs == 0 ? 0.5 : HarmonySum / Pairs);
+        public BeamNode? Parent { get; } = parent;
+
+        public int Candidate { get; } = candidate;
+
+        public long Cost { get; } = cost;
+
+        public double SlotSum { get; } = slotSum;
+
+        public double HarmonySum { get; } = harmonySum;
+
+        public int Pairs { get; } = pairs;
+
+        public double Key => KeyOf(SlotSum, HarmonySum, Pairs);
+
+        public static double KeyOf(double slotSum, double harmonySum, int pairs) =>
+            slotSum + 0.2 * (pairs == 0 ? 0.5 : harmonySum / pairs);
     }
 
     private static List<Scored[]> BeamSearch(Context ctx, List<Scored>[] pruned, long lo, long hi, CancellationToken ct)
@@ -317,57 +333,123 @@ public sealed class KitEngine
             maxRem[k] = maxRem[k + 1] + pruned[order[k]].Max(x => x.Price);
         }
 
-        var beam = new List<BeamState> { new(new Scored?[n], 0, 0, 0, 0) };
+        // Harmony between every pair of pruned candidates of two slots, computed once.
+        // harmony[j][k] (j < k, positions in "order") is a |pruned_j| x |pruned_k| matrix.
+        var harmony = new double[n][][];
+        for (int j = 0; j < n; j++)
+        {
+            harmony[j] = new double[n][];
+            var a = pruned[order[j]];
+            for (int k = j + 1; k < n; k++)
+            {
+                var b = pruned[order[k]];
+                var m = new double[a.Count * b.Count];
+                for (int x = 0; x < a.Count; x++)
+                {
+                    for (int y = 0; y < b.Count; y++)
+                    {
+                        m[x * b.Count + y] = Context.Harmony(b[y], a[x]);
+                    }
+                }
+
+                harmony[j][k] = m;
+            }
+        }
+
+        var beam = new List<BeamNode?> { null };
+        var path = new int[n];
         for (int k = 0; k < n; k++)
         {
             ct.ThrowIfCancellationRequested();
-            int s = order[k];
-            double priority = slots[s].Priority;
-            var next = new List<BeamState>(beam.Count * pruned[s].Count);
+            var cands = pruned[order[k]];
+            double priority = slots[order[k]].Priority;
+            // Best BeamPerBucket states of each cost bucket, equivalent to a stable sort by key
+            // (descending) followed by Take: on equal keys the earlier state wins.
+            var buckets = new BeamNode?[BeamBuckets][];
+            var counts = new int[BeamBuckets];
             foreach (var state in beam)
             {
-                foreach (var cand in pruned[s])
+                // Choices of the previous positions, in position order.
+                var node = state;
+                for (int j = k - 1; j >= 0; j--)
                 {
-                    long cost = state.Cost + cand.Price;
+                    path[j] = node!.Candidate;
+                    node = node.Parent;
+                }
+
+                long baseCost = state?.Cost ?? 0;
+                double baseSlot = state?.SlotSum ?? 0, baseHarmony = state?.HarmonySum ?? 0;
+                int pairs = (state?.Pairs ?? 0) + k;
+                for (int c = 0; c < cands.Count; c++)
+                {
+                    long cost = baseCost + cands[c].Price;
                     if (cost + minRem[k + 1] > hi || cost + maxRem[k + 1] < lo)
                     {
                         continue;
                     }
 
-                    double harmony = state.HarmonySum;
+                    double h = baseHarmony;
                     for (int j = 0; j < k; j++)
                     {
-                        harmony += Context.Harmony(cand, state.Picks[order[j]]!);
+                        h += harmony[j][k][path[j] * cands.Count + c];
                     }
 
-                    var picks = (Scored?[])state.Picks.Clone();
-                    picks[s] = cand;
-                    next.Add(new BeamState(picks, cost, state.SlotSum + priority * cand.SlotScore, harmony, state.Pairs + k));
+                    double slotSum = baseSlot + priority * cands[c].SlotScore;
+                    double key = BeamNode.KeyOf(slotSum, h, pairs);
+                    int b = (int)(cost * BeamBuckets / (hi + 1));
+                    var arr = buckets[b] ??= new BeamNode?[BeamPerBucket];
+                    int count = counts[b];
+                    if (count == BeamPerBucket && key <= arr[count - 1]!.Key)
+                    {
+                        continue;
+                    }
+
+                    int pos = count < BeamPerBucket ? count : BeamPerBucket - 1;
+                    while (pos > 0 && arr[pos - 1]!.Key < key)
+                    {
+                        if (pos < BeamPerBucket)
+                        {
+                            arr[pos] = arr[pos - 1];
+                        }
+
+                        pos--;
+                    }
+
+                    arr[pos] = new BeamNode(state, c, cost, slotSum, h, pairs);
+                    counts[b] = Math.Min(BeamPerBucket, count + 1);
                 }
             }
 
-            // Keep the best states of each cost bucket (stable sort: ties keep insertion order).
-            var buckets = new SortedDictionary<int, List<BeamState>>();
-            foreach (var st in next)
+            beam = [];
+            for (int b = 0; b < BeamBuckets; b++)
             {
-                int b = (int)(st.Cost * BeamBuckets / (hi + 1));
-                if (!buckets.TryGetValue(b, out var list))
+                for (int i = 0; i < counts[b]; i++)
                 {
-                    buckets[b] = list = [];
+                    beam.Add(buckets[b]![i]);
                 }
-
-                list.Add(st);
             }
 
-            beam = buckets.Values.SelectMany(l => l.OrderByDescending(x => x.Key).Take(BeamPerBucket)).ToList();
             if (beam.Count == 0)
             {
                 return [];
             }
         }
 
-        return beam
-            .Select(b => b.Picks.Select(p => p!).ToArray())
+        var complete = new List<Scored[]>(beam.Count);
+        foreach (var state in beam)
+        {
+            var picks = new Scored[n];
+            var node = state;
+            for (int k = n - 1; k >= 0; k--)
+            {
+                picks[order[k]] = pruned[order[k]][node!.Candidate];
+                node = node.Parent;
+            }
+
+            complete.Add(picks);
+        }
+
+        return complete
             .Select(p => (Picks: p, Score: ctx.FullScore(p)))
             .OrderByDescending(x => x.Score)
             .Select(x => x.Picks)
