@@ -1,0 +1,434 @@
+{
+  "description": "Kit engine cases. \u0027expect\u0027 is golden output of the reference (Windows) implementation; the Android port must produce the same picks.",
+  "cases": [
+    {
+      "name": "acceptance-red-200-main-without-knife-gloves",
+      "description": "Phase 2 acceptance shape: R$ 200, main items without knife/gloves, red.",
+      "request": {
+        "targetHex": "#d32f2f",
+        "colorTolerance": 0.5,
+        "budgetCents": 20000,
+        "budgetTolerance": 0.1,
+        "slots": [
+          {
+            "slot": "ak47"
+          },
+          {
+            "slot": "m4"
+          },
+          {
+            "slot": "awp"
+          },
+          {
+            "slot": "deagle"
+          },
+          {
+            "slot": "pistol"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": true,
+        "reason": null,
+        "problemSlot": null,
+        "picks": {
+          "ak47": "ak-crimson-ft",
+          "m4": "m4-daimyo-ft",
+          "awp": "awp-stripe-ft",
+          "deagle": "deagle-code-ft",
+          "pistol": "glock-element-ft"
+        },
+        "totalCents": 19200
+      }
+    },
+    {
+      "name": "tolerance-zero",
+      "description": "0% tolerance: never above the budget (5% minimum underspend margin).",
+      "request": {
+        "targetHex": "#d32f2f",
+        "colorTolerance": 0.5,
+        "budgetCents": 20000,
+        "budgetTolerance": 0.0,
+        "slots": [
+          {
+            "slot": "ak47"
+          },
+          {
+            "slot": "m4"
+          },
+          {
+            "slot": "awp"
+          },
+          {
+            "slot": "deagle"
+          },
+          {
+            "slot": "pistol"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": true,
+        "reason": null,
+        "problemSlot": null,
+        "picks": {
+          "ak47": "ak-crimson-ft",
+          "m4": "m4-daimyo-ft",
+          "awp": "awp-stripe-ft",
+          "deagle": "deagle-code-ft",
+          "pistol": "glock-element-ft"
+        },
+        "totalCents": 19200
+      }
+    },
+    {
+      "name": "impossible-budget",
+      "description": "Budget does not cover the cheapest knife \u002B gloves.",
+      "request": {
+        "targetHex": null,
+        "budgetCents": 5000,
+        "budgetTolerance": 0.1,
+        "slots": [
+          {
+            "slot": "knife"
+          },
+          {
+            "slot": "gloves"
+          },
+          {
+            "slot": "ak47"
+          },
+          {
+            "slot": "m4"
+          },
+          {
+            "slot": "awp"
+          },
+          {
+            "slot": "deagle"
+          },
+          {
+            "slot": "pistol"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": false,
+        "reason": "BudgetTooLow",
+        "problemSlot": "knife",
+        "picks": null,
+        "totalCents": null
+      }
+    },
+    {
+      "name": "no-color",
+      "description": "No color preference.",
+      "request": {
+        "targetHex": null,
+        "budgetCents": 30000,
+        "budgetTolerance": 0.1,
+        "slots": [
+          {
+            "slot": "ak47"
+          },
+          {
+            "slot": "m4"
+          },
+          {
+            "slot": "awp"
+          },
+          {
+            "slot": "deagle"
+          },
+          {
+            "slot": "pistol"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": true,
+        "reason": null,
+        "problemSlot": null,
+        "picks": {
+          "ak47": "ak-stripe-ft",
+          "m4": "m4-space-ft",
+          "awp": "awp-stripe-ft",
+          "deagle": "deagle-code-ft",
+          "pistol": "usp-cyber-ft"
+        },
+        "totalCents": 30200
+      }
+    },
+    {
+      "name": "rare-color-strict",
+      "description": "Strict gold: the only gold AK costs more than the budget.",
+      "request": {
+        "targetHex": "#c9a227",
+        "colorTolerance": 0.0,
+        "budgetCents": 10000,
+        "budgetTolerance": 0.1,
+        "slots": [
+          {
+            "slot": "ak47"
+          },
+          {
+            "slot": "awp"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": false,
+        "reason": "BudgetTooLow",
+        "problemSlot": "awp",
+        "picks": null,
+        "totalCents": null
+      }
+    },
+    {
+      "name": "color-unavailable",
+      "description": "Strict bright green: no Desert Eagle has that color at any price.",
+      "request": {
+        "targetHex": "#00e676",
+        "colorTolerance": 0.0,
+        "budgetCents": 10000,
+        "budgetTolerance": 0.1,
+        "slots": [
+          {
+            "slot": "deagle"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": false,
+        "reason": "NoCandidatesForSlot",
+        "problemSlot": "deagle",
+        "picks": null,
+        "totalCents": null
+      }
+    },
+    {
+      "name": "knife-only",
+      "description": "Only the knife slot, blue.",
+      "request": {
+        "targetHex": "#1e5bd6",
+        "colorTolerance": 0.5,
+        "budgetCents": 50000,
+        "budgetTolerance": 0.1,
+        "slots": [
+          {
+            "slot": "knife"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": true,
+        "reason": null,
+        "problemSlot": null,
+        "picks": {
+          "knife": "knife-water-mw"
+        },
+        "totalCents": 45000
+      }
+    },
+    {
+      "name": "locked-item",
+      "description": "AWP locked; the rest is built around it.",
+      "request": {
+        "targetHex": "#d32f2f",
+        "colorTolerance": 0.5,
+        "budgetCents": 40000,
+        "budgetTolerance": 0.1,
+        "slots": [
+          {
+            "slot": "ak47"
+          },
+          {
+            "slot": "m4"
+          },
+          {
+            "slot": "awp",
+            "locked": "awp-stripe-ft"
+          },
+          {
+            "slot": "deagle"
+          },
+          {
+            "slot": "pistol"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": true,
+        "reason": null,
+        "problemSlot": null,
+        "picks": {
+          "ak47": "ak-crimson-ft",
+          "m4": "m4-daimyo-ft",
+          "awp": "awp-stripe-ft",
+          "deagle": "deagle-code-ft",
+          "pistol": "usp-confirmed-ft"
+        },
+        "totalCents": 37700
+      }
+    },
+    {
+      "name": "owned-zero-cost",
+      "description": "Owned AK-47 counts as free.",
+      "request": {
+        "targetHex": "#d32f2f",
+        "colorTolerance": 0.8,
+        "budgetCents": 25000,
+        "budgetTolerance": 0.1,
+        "ownedItems": "ZeroCost",
+        "slots": [
+          {
+            "slot": "ak47"
+          },
+          {
+            "slot": "deagle"
+          },
+          {
+            "slot": "pistol"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": true,
+        "reason": null,
+        "problemSlot": null,
+        "picks": {
+          "ak47": "owned:ak-stripe-ft",
+          "deagle": "deagle-code-ft",
+          "pistol": "usp-confirmed-ft"
+        },
+        "totalCents": 24000
+      }
+    },
+    {
+      "name": "owned-ignored",
+      "description": "Same as owned-zero-cost but owned items are ignored.",
+      "request": {
+        "targetHex": "#d32f2f",
+        "colorTolerance": 0.8,
+        "budgetCents": 25000,
+        "budgetTolerance": 0.1,
+        "ownedItems": "Ignore",
+        "slots": [
+          {
+            "slot": "ak47"
+          },
+          {
+            "slot": "deagle"
+          },
+          {
+            "slot": "pistol"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": true,
+        "reason": null,
+        "problemSlot": null,
+        "picks": {
+          "ak47": "ak-slate-ft",
+          "deagle": "deagle-code-ft",
+          "pistol": "usp-confirmed-ft"
+        },
+        "totalCents": 25500
+      }
+    },
+    {
+      "name": "seeded-combination",
+      "description": "Same as acceptance with seed 7 (\u0022generate another combination\u0022).",
+      "request": {
+        "targetHex": "#d32f2f",
+        "colorTolerance": 0.5,
+        "budgetCents": 20000,
+        "budgetTolerance": 0.1,
+        "slots": [
+          {
+            "slot": "ak47"
+          },
+          {
+            "slot": "m4"
+          },
+          {
+            "slot": "awp"
+          },
+          {
+            "slot": "deagle"
+          },
+          {
+            "slot": "pistol"
+          }
+        ],
+        "seed": 7
+      },
+      "expect": {
+        "feasible": true,
+        "reason": null,
+        "problemSlot": null,
+        "picks": {
+          "ak47": "ak-crimson-ft",
+          "m4": "m4-daimyo-ft",
+          "awp": "awp-stripe-ft",
+          "deagle": "deagle-code-ft",
+          "pistol": "glock-element-ft"
+        },
+        "totalCents": 19200
+      }
+    },
+    {
+      "name": "budget-too-high",
+      "description": "Budget far above what one pistol slot can use: best-effort kit, flagged.",
+      "request": {
+        "targetHex": null,
+        "budgetCents": 1000000,
+        "budgetTolerance": 0.1,
+        "slots": [
+          {
+            "slot": "pistol"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": false,
+        "reason": "BudgetTooHigh",
+        "problemSlot": null,
+        "picks": {
+          "pistol": "usp-confirmed-ft"
+        },
+        "totalCents": 20000
+      }
+    },
+    {
+      "name": "worst-exterior-and-priority",
+      "description": "Knife \u002B gloves, at least Field-Tested, knife prioritized.",
+      "request": {
+        "targetHex": null,
+        "budgetCents": 200000,
+        "budgetTolerance": 0.15,
+        "worstExterior": "Field-Tested",
+        "slots": [
+          {
+            "slot": "knife",
+            "priority": 2.0
+          },
+          {
+            "slot": "gloves"
+          }
+        ]
+      },
+      "expect": {
+        "feasible": true,
+        "reason": null,
+        "problemSlot": null,
+        "picks": {
+          "knife": "knife-sunset-fn",
+          "gloves": "gloves-dark-ft"
+        },
+        "totalCents": 190000
+      }
+    }
+  ]
+}

@@ -1,0 +1,1259 @@
+{
+ "description": "Synthetic catalog for kit engine tests. Names and prices are invented.",
+ "currency": "BRL",
+ "candidates": [
+  {
+   "itemId": "knife-crimson-fn",
+   "skinId": "knife-crimson",
+   "name": "★ Karambit | Crimson Flow",
+   "weapon": "Karambit",
+   "category": "Knives",
+   "rarity": "Covert",
+   "exterior": "Factory New",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 450000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": true,
+   "colors": [
+    {
+     "hex": "#c62828",
+     "weight": 0.45
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.45
+    },
+    {
+     "hex": "#f2f2f2",
+     "weight": 0.1
+    }
+   ]
+  },
+  {
+   "itemId": "knife-redweb-ft",
+   "skinId": "knife-redweb",
+   "name": "★ Gut Knife | Red Web",
+   "weapon": "Gut Knife",
+   "category": "Knives",
+   "rarity": "Covert",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 90000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#7f1d1d",
+     "weight": 0.4
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.45
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.15
+    }
+   ]
+  },
+  {
+   "itemId": "knife-urban-bs",
+   "skinId": "knife-urban",
+   "name": "★ Navaja Knife | Urban",
+   "weapon": "Navaja Knife",
+   "category": "Knives",
+   "rarity": "Covert",
+   "exterior": "Battle-Scarred",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 35000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.6
+    },
+    {
+     "hex": "#9e9e9e",
+     "weight": 0.4
+    }
+   ]
+  },
+  {
+   "itemId": "knife-sapphire-fn",
+   "skinId": "knife-sapphire",
+   "name": "★ Bayonet | Deep Sapphire",
+   "weapon": "Bayonet",
+   "category": "Knives",
+   "rarity": "Covert",
+   "exterior": "Factory New",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 1200000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": true,
+   "colors": [
+    {
+     "hex": "#1e5bd6",
+     "weight": 0.45
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.45
+    },
+    {
+     "hex": "#f2f2f2",
+     "weight": 0.1
+    }
+   ]
+  },
+  {
+   "itemId": "knife-night-ft",
+   "skinId": "knife-night",
+   "name": "★ Flip Knife | Midnight",
+   "weapon": "Flip Knife",
+   "category": "Knives",
+   "rarity": "Covert",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 60000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.7
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.3
+    }
+   ]
+  },
+  {
+   "itemId": "knife-water-mw",
+   "skinId": "knife-water",
+   "name": "★ Huntsman Knife | Clear Water",
+   "weapon": "Huntsman Knife",
+   "category": "Knives",
+   "rarity": "Covert",
+   "exterior": "Minimal Wear",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 45000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1e5bd6",
+     "weight": 0.35
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.55
+    },
+    {
+     "hex": "#f2f2f2",
+     "weight": 0.1
+    }
+   ]
+  },
+  {
+   "itemId": "knife-sunset-fn",
+   "skinId": "knife-sunset",
+   "name": "★ Falchion Knife | Sunset",
+   "weapon": "Falchion Knife",
+   "category": "Knives",
+   "rarity": "Covert",
+   "exterior": "Factory New",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 150000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": true,
+   "colors": [
+    {
+     "hex": "#e65100",
+     "weight": 0.3
+    },
+    {
+     "hex": "#e91e8c",
+     "weight": 0.25
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.45
+    }
+   ]
+  },
+  {
+   "itemId": "gloves-vivid-ft",
+   "skinId": "gloves-vivid",
+   "name": "★ Sport Gloves | Vivid",
+   "weapon": "Sport Gloves",
+   "category": "Gloves",
+   "rarity": "Extraordinary",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 400000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#e91e8c",
+     "weight": 0.4
+    },
+    {
+     "hex": "#00897b",
+     "weight": 0.35
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.25
+    }
+   ]
+  },
+  {
+   "itemId": "gloves-crimson-ft",
+   "skinId": "gloves-crimson",
+   "name": "★ Driver Gloves | Crimson Knit",
+   "weapon": "Driver Gloves",
+   "category": "Gloves",
+   "rarity": "Extraordinary",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 220000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#c62828",
+     "weight": 0.55
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.45
+    }
+   ]
+  },
+  {
+   "itemId": "gloves-spruce-bs",
+   "skinId": "gloves-spruce",
+   "name": "★ Hand Wraps | Spruce",
+   "weapon": "Hand Wraps",
+   "category": "Gloves",
+   "rarity": "Extraordinary",
+   "exterior": "Battle-Scarred",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 30000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.55
+    },
+    {
+     "hex": "#2e7d32",
+     "weight": 0.45
+    }
+   ]
+  },
+  {
+   "itemId": "gloves-dark-ft",
+   "skinId": "gloves-dark",
+   "name": "★ Bloodhound Gloves | Charcoal",
+   "weapon": "Bloodhound Gloves",
+   "category": "Gloves",
+   "rarity": "Extraordinary",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 40000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.65
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.35
+    }
+   ]
+  },
+  {
+   "itemId": "gloves-mint-ft",
+   "skinId": "gloves-mint",
+   "name": "★ Moto Gloves | Mint",
+   "weapon": "Moto Gloves",
+   "category": "Gloves",
+   "rarity": "Extraordinary",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 120000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#00897b",
+     "weight": 0.55
+    },
+    {
+     "hex": "#f2f2f2",
+     "weight": 0.45
+    }
+   ]
+  },
+  {
+   "itemId": "ak-stripe-ft",
+   "skinId": "ak-stripe",
+   "name": "AK-47 | Red Stripe",
+   "weapon": "AK-47",
+   "category": "Rifles",
+   "rarity": "Classified",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 14000,
+   "salesVolume": 900,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.75
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.17
+    },
+    {
+     "hex": "#7f1d1d",
+     "weight": 0.08
+    }
+   ]
+  },
+  {
+   "itemId": "ak-stripe-ft-st",
+   "skinId": "ak-stripe",
+   "name": "AK-47 | Red Stripe",
+   "weapon": "AK-47",
+   "category": "Rifles",
+   "rarity": "Classified",
+   "exterior": "Field-Tested",
+   "statTrak": true,
+   "souvenir": false,
+   "priceCents": 30000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.75
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.17
+    },
+    {
+     "hex": "#7f1d1d",
+     "weight": 0.08
+    }
+   ]
+  },
+  {
+   "itemId": "ak-blood-mw",
+   "skinId": "ak-blood",
+   "name": "AK-47 | Blood Rush",
+   "weapon": "AK-47",
+   "category": "Rifles",
+   "rarity": "Covert",
+   "exterior": "Minimal Wear",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 30000,
+   "salesVolume": 300,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#c62828",
+     "weight": 0.4
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.35
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.25
+    }
+   ]
+  },
+  {
+   "itemId": "ak-crimson-ft",
+   "skinId": "ak-crimson",
+   "name": "AK-47 | Crimson Lines",
+   "weapon": "AK-47",
+   "category": "Rifles",
+   "rarity": "Mil-Spec Grade",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 4500,
+   "salesVolume": 1200,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#c62828",
+     "weight": 0.35
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.45
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.2
+    }
+   ]
+  },
+  {
+   "itemId": "ak-slate-ft",
+   "skinId": "ak-slate",
+   "name": "AK-47 | Slate",
+   "weapon": "AK-47",
+   "category": "Rifles",
+   "rarity": "Restricted",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 1500,
+   "salesVolume": 5000,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.7
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.3
+    }
+   ]
+  },
+  {
+   "itemId": "ak-laminate-mw",
+   "skinId": "ak-laminate",
+   "name": "AK-47 | Blue Layers",
+   "weapon": "AK-47",
+   "category": "Rifles",
+   "rarity": "Mil-Spec Grade",
+   "exterior": "Minimal Wear",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 3500,
+   "salesVolume": 400,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1e5bd6",
+     "weight": 0.45
+    },
+    {
+     "hex": "#1a237e",
+     "weight": 0.25
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.3
+    }
+   ]
+  },
+  {
+   "itemId": "ak-serpent-ft",
+   "skinId": "ak-serpent",
+   "name": "AK-47 | Green Serpent",
+   "weapon": "AK-47",
+   "category": "Rifles",
+   "rarity": "Covert",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 250000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#2e7d32",
+     "weight": 0.4
+    },
+    {
+     "hex": "#b8a27a",
+     "weight": 0.3
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.3
+    }
+   ]
+  },
+  {
+   "itemId": "ak-hardened-bs",
+   "skinId": "ak-hardened",
+   "name": "AK-47 | Tempered",
+   "weapon": "AK-47",
+   "category": "Rifles",
+   "rarity": "Classified",
+   "exterior": "Battle-Scarred",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 60000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": true,
+   "colors": [
+    {
+     "hex": "#1e5bd6",
+     "weight": 0.35
+    },
+    {
+     "hex": "#c9a227",
+     "weight": 0.3
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.35
+    }
+   ]
+  },
+  {
+   "itemId": "m4-howler-ft",
+   "skinId": "m4-howler",
+   "name": "M4A4 | Howler",
+   "weapon": "M4A4",
+   "category": "Rifles",
+   "rarity": "Contraband",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 2500000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#c62828",
+     "weight": 0.45
+    },
+    {
+     "hex": "#e65100",
+     "weight": 0.2
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.35
+    }
+   ]
+  },
+  {
+   "itemId": "m4-beast-ft",
+   "skinId": "m4-beast",
+   "name": "M4A1-S | Wild Beast",
+   "weapon": "M4A1-S",
+   "category": "Rifles",
+   "rarity": "Covert",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 8000,
+   "salesVolume": 1500,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1e5bd6",
+     "weight": 0.35
+    },
+    {
+     "hex": "#00897b",
+     "weight": 0.25
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.4
+    }
+   ]
+  },
+  {
+   "itemId": "m4-daimyo-ft",
+   "skinId": "m4-daimyo",
+   "name": "M4A4 | Red Lord",
+   "weapon": "M4A4",
+   "category": "Rifles",
+   "rarity": "Restricted",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 1200,
+   "salesVolume": 2500,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#c62828",
+     "weight": 0.35
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.45
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.2
+    }
+   ]
+  },
+  {
+   "itemId": "m4-nitro-ft",
+   "skinId": "m4-nitro",
+   "name": "M4A1-S | Nitrous",
+   "weapon": "M4A1-S",
+   "category": "Rifles",
+   "rarity": "Classified",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 900,
+   "salesVolume": 1800,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.6
+    },
+    {
+     "hex": "#c62828",
+     "weight": 0.15
+    },
+    {
+     "hex": "#f2f2f2",
+     "weight": 0.25
+    }
+   ]
+  },
+  {
+   "itemId": "m4-space-ft",
+   "skinId": "m4-space",
+   "name": "M4A4 | Deep Space",
+   "weapon": "M4A4",
+   "category": "Rifles",
+   "rarity": "Covert",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 3000,
+   "salesVolume": 700,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1a237e",
+     "weight": 0.45
+    },
+    {
+     "hex": "#1e5bd6",
+     "weight": 0.25
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.3
+    }
+   ]
+  },
+  {
+   "itemId": "m4-lizard-mw",
+   "skinId": "m4-lizard",
+   "name": "M4A1-S | Lizard",
+   "weapon": "M4A1-S",
+   "category": "Rifles",
+   "rarity": "Restricted",
+   "exterior": "Minimal Wear",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 1500,
+   "salesVolume": 900,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.55
+    },
+    {
+     "hex": "#9e9e9e",
+     "weight": 0.45
+    }
+   ]
+  },
+  {
+   "itemId": "awp-desert-ft",
+   "skinId": "awp-desert",
+   "name": "AWP | Desert Sim",
+   "weapon": "AWP",
+   "category": "Rifles",
+   "rarity": "Covert",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 45000,
+   "salesVolume": 600,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#f2f2f2",
+     "weight": 0.45
+    },
+    {
+     "hex": "#e65100",
+     "weight": 0.2
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.35
+    }
+   ]
+  },
+  {
+   "itemId": "awp-viper-ft",
+   "skinId": "awp-viper",
+   "name": "AWP | Viper",
+   "weapon": "AWP",
+   "category": "Rifles",
+   "rarity": "Classified",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 600,
+   "salesVolume": 3000,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.65
+    },
+    {
+     "hex": "#9e9e9e",
+     "weight": 0.35
+    }
+   ]
+  },
+  {
+   "itemId": "awp-veins-ft",
+   "skinId": "awp-veins",
+   "name": "AWP | Red Veins",
+   "weapon": "AWP",
+   "category": "Rifles",
+   "rarity": "Mil-Spec Grade",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 400,
+   "salesVolume": 2000,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#c62828",
+     "weight": 0.3
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.5
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.2
+    }
+   ]
+  },
+  {
+   "itemId": "awp-coil-ft",
+   "skinId": "awp-coil",
+   "name": "AWP | Blue Coil",
+   "weapon": "AWP",
+   "category": "Rifles",
+   "rarity": "Covert",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 1500,
+   "salesVolume": 1000,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1e5bd6",
+     "weight": 0.4
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.4
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.2
+    }
+   ]
+  },
+  {
+   "itemId": "awp-stripe-ft",
+   "skinId": "awp-stripe",
+   "name": "AWP | Red Stripe",
+   "weapon": "AWP",
+   "category": "Rifles",
+   "rarity": "Classified",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 8000,
+   "salesVolume": 800,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.7
+    },
+    {
+     "hex": "#c62828",
+     "weight": 0.15
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.15
+    }
+   ]
+  },
+  {
+   "itemId": "awp-lore-ft",
+   "skinId": "awp-lore",
+   "name": "AWP | Golden Legend",
+   "weapon": "AWP",
+   "category": "Rifles",
+   "rarity": "Covert",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 6000000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#c9a227",
+     "weight": 0.5
+    },
+    {
+     "hex": "#b8a27a",
+     "weight": 0.3
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.2
+    }
+   ]
+  },
+  {
+   "itemId": "awp-pink-ft-sv",
+   "skinId": "awp-pink-ft",
+   "name": "AWP | Pink Camo",
+   "weapon": "AWP",
+   "category": "Rifles",
+   "rarity": "Mil-Spec Grade",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": true,
+   "priceCents": 50000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#e91e8c",
+     "weight": 0.35
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.65
+    }
+   ]
+  },
+  {
+   "itemId": "deagle-code-ft",
+   "skinId": "deagle-code",
+   "name": "Desert Eagle | Code Crimson",
+   "weapon": "Desert Eagle",
+   "category": "Pistols",
+   "rarity": "Covert",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 4000,
+   "salesVolume": 900,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#c62828",
+     "weight": 0.4
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.4
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.2
+    }
+   ]
+  },
+  {
+   "itemId": "deagle-blaze-fn",
+   "skinId": "deagle-blaze",
+   "name": "Desert Eagle | Flame",
+   "weapon": "Desert Eagle",
+   "category": "Pistols",
+   "rarity": "Restricted",
+   "exterior": "Factory New",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 250000,
+   "salesVolume": null,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#e65100",
+     "weight": 0.45
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.55
+    }
+   ]
+  },
+  {
+   "itemId": "deagle-night-ft",
+   "skinId": "deagle-night",
+   "name": "Desert Eagle | Nightfall",
+   "weapon": "Desert Eagle",
+   "category": "Pistols",
+   "rarity": "Mil-Spec Grade",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 500,
+   "salesVolume": 1200,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.7
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.3
+    }
+   ]
+  },
+  {
+   "itemId": "deagle-ply-ft",
+   "skinId": "deagle-ply",
+   "name": "Desert Eagle | Blue Grid",
+   "weapon": "Desert Eagle",
+   "category": "Pistols",
+   "rarity": "Mil-Spec Grade",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 400,
+   "salesVolume": 800,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1e5bd6",
+     "weight": 0.4
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.6
+    }
+   ]
+  },
+  {
+   "itemId": "deagle-web-ft",
+   "skinId": "deagle-web",
+   "name": "Desert Eagle | Red Web",
+   "weapon": "Desert Eagle",
+   "category": "Pistols",
+   "rarity": "Covert",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 3000,
+   "salesVolume": 400,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#7f1d1d",
+     "weight": 0.45
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.4
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.15
+    }
+   ]
+  },
+  {
+   "itemId": "usp-confirmed-ft",
+   "skinId": "usp-confirmed",
+   "name": "USP-S | Confirmed",
+   "weapon": "USP-S",
+   "category": "Pistols",
+   "rarity": "Covert",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 20000,
+   "salesVolume": 700,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#c62828",
+     "weight": 0.35
+    },
+    {
+     "hex": "#b8a27a",
+     "weight": 0.3
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.35
+    }
+   ]
+  },
+  {
+   "itemId": "glock-element-ft",
+   "skinId": "glock-element",
+   "name": "Glock-18 | Elemental",
+   "weapon": "Glock-18",
+   "category": "Pistols",
+   "rarity": "Classified",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 1500,
+   "salesVolume": 1500,
+   "owned": false,
+   "isMultiColor": true,
+   "colors": [
+    {
+     "hex": "#c62828",
+     "weight": 0.35
+    },
+    {
+     "hex": "#1e5bd6",
+     "weight": 0.25
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.4
+    }
+   ]
+  },
+  {
+   "itemId": "usp-cyber-ft",
+   "skinId": "usp-cyber",
+   "name": "USP-S | Cyber",
+   "weapon": "USP-S",
+   "category": "Pistols",
+   "rarity": "Classified",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 1200,
+   "salesVolume": 1300,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#c62828",
+     "weight": 0.3
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.5
+    },
+    {
+     "hex": "#f2f2f2",
+     "weight": 0.2
+    }
+   ]
+  },
+  {
+   "itemId": "glock-dune-bs",
+   "skinId": "glock-dune",
+   "name": "Glock-18 | Dune",
+   "weapon": "Glock-18",
+   "category": "Pistols",
+   "rarity": "Consumer Grade",
+   "exterior": "Battle-Scarred",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 50,
+   "salesVolume": 8000,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#b8a27a",
+     "weight": 0.8
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.2
+    }
+   ]
+  },
+  {
+   "itemId": "usp-blueprint-ft",
+   "skinId": "usp-blueprint",
+   "name": "USP-S | Blueprint",
+   "weapon": "USP-S",
+   "category": "Pistols",
+   "rarity": "Mil-Spec Grade",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 600,
+   "salesVolume": 900,
+   "owned": false,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1e5bd6",
+     "weight": 0.5
+    },
+    {
+     "hex": "#f2f2f2",
+     "weight": 0.2
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.3
+    }
+   ]
+  },
+  {
+   "itemId": "glock-vogue-ft",
+   "skinId": "glock-vogue",
+   "name": "Glock-18 | Vogue",
+   "weapon": "Glock-18",
+   "category": "Pistols",
+   "rarity": "Classified",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 800,
+   "salesVolume": 1100,
+   "owned": false,
+   "isMultiColor": true,
+   "colors": [
+    {
+     "hex": "#e91e8c",
+     "weight": 0.3
+    },
+    {
+     "hex": "#00897b",
+     "weight": 0.25
+    },
+    {
+     "hex": "#e65100",
+     "weight": 0.2
+    },
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.25
+    }
+   ]
+  },
+  {
+   "itemId": "owned:ak-stripe-ft",
+   "skinId": "ak-stripe",
+   "name": "AK-47 | Red Stripe",
+   "weapon": "AK-47",
+   "category": "Rifles",
+   "rarity": "Classified",
+   "exterior": "Field-Tested",
+   "statTrak": false,
+   "souvenir": false,
+   "priceCents": 14000,
+   "salesVolume": null,
+   "owned": true,
+   "isMultiColor": false,
+   "colors": [
+    {
+     "hex": "#1c1c1c",
+     "weight": 0.75
+    },
+    {
+     "hex": "#5f5f5f",
+     "weight": 0.17
+    },
+    {
+     "hex": "#7f1d1d",
+     "weight": 0.08
+    }
+   ]
+  }
+ ]
+}
