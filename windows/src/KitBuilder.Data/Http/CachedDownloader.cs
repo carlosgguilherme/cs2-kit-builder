@@ -9,6 +9,7 @@ namespace KitBuilder.Data.Http;
 /// </summary>
 public sealed class CachedDownloader(HttpClient http, LocalDatabase db, string cacheDir, TimeProvider? time = null)
 {
+    private const string NotFoundMarker = "";
     private readonly TimeProvider clock = time ?? TimeProvider.System;
 
     public sealed record Result(string FilePath, DateTimeOffset CheckedAt, bool FromNetwork, bool Stale);
@@ -18,12 +19,12 @@ public sealed class CachedDownloader(HttpClient http, LocalDatabase db, string c
         Directory.CreateDirectory(cacheDir);
         var file = Path.Combine(cacheDir, FileName(url));
         var now = clock.GetUtcNow();
-        string? etag = null, lastModified = null;
+        string? etag = null, lastModified = null, cachedFile = null;
         DateTimeOffset? checkedAt = null;
         using (var c = db.Open())
         using (var cmd = c.CreateCommand())
         {
-            cmd.CommandText = "SELECT etag, last_modified, checked_at FROM http_cache WHERE url = $u";
+            cmd.CommandText = "SELECT etag, last_modified, checked_at, file FROM http_cache WHERE url = $u";
             cmd.Parameters.AddWithValue("$u", url);
             using var r = cmd.ExecuteReader();
             if (r.Read())
@@ -31,7 +32,15 @@ public sealed class CachedDownloader(HttpClient http, LocalDatabase db, string c
                 etag = r.IsDBNull(0) ? null : r.GetString(0);
                 lastModified = r.IsDBNull(1) ? null : r.GetString(1);
                 checkedAt = DateTimeOffset.FromUnixTimeSeconds(r.GetInt64(2));
+                cachedFile = r.GetString(3);
             }
+        }
+
+        // A recent 404 is remembered (empty file name) so a missing resource, such as a catalog
+        // locale that is not published, is not requested on every load.
+        if (cachedFile == NotFoundMarker && checkedAt is { } missingAt && now - missingAt < checkInterval)
+        {
+            throw new HttpRequestException($"{url} was not found (cached).", null, HttpStatusCode.NotFound);
         }
 
         bool haveFile = File.Exists(file);
@@ -58,6 +67,11 @@ public sealed class CachedDownloader(HttpClient http, LocalDatabase db, string c
             {
                 Save(url, etag, lastModified, file, now);
                 return new Result(file, now, true, false);
+            }
+
+            if (resp.StatusCode == HttpStatusCode.NotFound && !haveFile)
+            {
+                Save(url, null, null, NotFoundMarker, now);
             }
 
             resp.EnsureSuccessStatusCode();

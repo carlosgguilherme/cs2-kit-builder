@@ -25,4 +25,28 @@ public class RegressionTests
         Assert.Contains("Phase 1", phases);
         Assert.DoesNotContain("Black Pearl", phases);
     }
+
+    [Fact]
+    public async Task MissingCatalogLocaleIsNotRequestedOnEveryLoad()
+    {
+        var db = Fx.TempDb();
+        var stub = new StubHandler(req => req.RequestUri!.AbsolutePath.Contains("/pt-BR/", StringComparison.Ordinal)
+            ? new HttpResponseMessage(HttpStatusCode.NotFound)
+            : new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(Fx.Text("recorded/bymykel-skins-not-grouped.slice.json")) });
+        var options = new DataOptions { DataDirectory = Path.Combine(Path.GetTempPath(), "kitbuilder-tests", Guid.NewGuid().ToString("N")) };
+        var clock = new ManualClock(T0);
+        var service = new CatalogService(new CachedDownloader(new HttpClient(stub), db, Path.Combine(options.DataDirectory, "cache"),
+            clock), options);
+
+        var first = await service.LoadItemsAsync();
+        var second = await service.LoadItemsAsync();
+        Assert.Equal("en", first.Locale);
+        Assert.Equal("en", second.Locale);
+        Assert.Equal(1, stub.Requests.Count(r => r.RequestUri!.AbsolutePath.Contains("/pt-BR/", StringComparison.Ordinal)));
+
+        // After the check interval the locale is tried again (it may have been published).
+        clock.Now = T0.AddDays(2);
+        await service.LoadItemsAsync();
+        Assert.Equal(2, stub.Requests.Count(r => r.RequestUri!.AbsolutePath.Contains("/pt-BR/", StringComparison.Ordinal)));
+    }
 }
