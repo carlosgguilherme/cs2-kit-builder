@@ -1,0 +1,40 @@
+{
+  "$description": "Design tokens shared by Windows (WinUI 3) and Android (Compose). Rarity colors confirmed against the ByMykel catalog on 2026-11-06.",
+  "rarity": {
+    "consumerGrade": "#B0C3D9",
+    "industrialGrade": "#5E98D9",
+    "milSpec": "#4B69FF",
+    "restricted": "#8847FF",
+    "classified": "#D32CE6",
+    "covert": "#EB4B4B",
+    "extraordinary": "#EB4B4B",
+    "contraband": "#E4AE39"
+  },
+  "badge": {
+    "star": "#FFD700",
+    "statTrak": "#CF6A32",
+    "souvenir": "#FFD700"
+  },
+  "budget": {
+    "withinBand": "#3DDC84",
+    "nearEdge": "#FFC857",
+    "outOfBand": "#FF5C5C"
+  },
+  "surface": {
+    "dark": { "background": "#0E1116", "glass": "#FFFFFF14", "glassBorder": "#FFFFFF2E", "text": "#F2F4F8", "textMuted": "#A4ACB9" },
+    "light": { "background": "#F3F5F9", "glass": "#FFFFFFB3", "glassBorder": "#0000001A", "text": "#11151C", "textMuted": "#566070" }
+  },
+  "accent": "#7C5CFF",
+  "radius": { "card": 16, "panel": 24, "chip": 999 },
+  "blur": { "panel": 30, "card": 18 },
+  "motion": {
+    "durationMs": { "fast": 120, "normal": 220, "slow": 380, "staggerStep": 45, "counter": 600 },
+    "spring": { "dampingRatio": 0.78, "stiffness": 380 },
+    "reducedMotionDurationMs": 0
+  },
+  "typography": {
+    "windows": "Segoe UI Variable",
+    "android": "system",
+    "priceWeight": 700
+  }
+}
