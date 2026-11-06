@@ -26,7 +26,10 @@ Recorded responses used by the tests live in `shared/test-fixtures/recorded/` (r
 - Facts used by the code:
   - Every `skin_id` exists in `skins.json` (0 orphans) → the color index is keyed by `skin_id`.
   - Doppler/Gamma Doppler phases are separate skins with a `phase` field, but **share the same
-    `market_hash_name`** (122 duplicates). Steam therefore has a single price for all phases.
+    `market_hash_name`** (122 duplicates). Steam therefore has a single price for all phases: the
+    lowest listing, which belongs to a common phase. Gem phases (Ruby, Sapphire, Black Pearl,
+    Emerald — 4 to 7 times more expensive) are not offered as market candidates (issue #1);
+    Phase 1–4 use the shared price.
   - Vanilla knives have no `wear` (e.g. `★ Bayonet`).
   - Categories: Rifles (snipers included), Pistols, SMGs, Heavy, Knives, Gloves, Equipment (Zeus x27).
   - `team.id`: `both`, `counter-terrorists`, `terrorists`.

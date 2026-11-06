@@ -9,6 +9,13 @@ namespace KitBuilder.Data;
 /// <summary>Joins catalog, prices, color index and (optionally) the user's inventory into engine candidates.</summary>
 public static class CandidateFactory
 {
+    /// <summary>
+    /// Doppler/Gamma Doppler phases that Steam lists under the same market name as the common
+    /// phases. The shared lowest listing belongs to a cheap phase, so these have no reliable price.
+    /// </summary>
+    public static readonly IReadOnlySet<string> GemPhases =
+        new HashSet<string>(["Ruby", "Sapphire", "Black Pearl", "Emerald"], StringComparer.Ordinal);
+
     public static List<KitCandidate> Build(
         IReadOnlyList<CatalogItem> catalog,
         IReadOnlyDictionary<string, PriceQuote> prices,
@@ -19,8 +26,13 @@ public static class CandidateFactory
         var byName = new Dictionary<string, CatalogItem>(StringComparer.Ordinal);
         foreach (var item in catalog)
         {
-            byName.TryAdd(item.MarketHashName, item);
-            if (!prices.TryGetValue(item.MarketHashName, out var price))
+            bool gem = item.Phase is { } phase && GemPhases.Contains(phase);
+            if (!gem)
+            {
+                byName.TryAdd(item.MarketHashName, item);
+            }
+
+            if (gem || !prices.TryGetValue(item.MarketHashName, out var price))
             {
                 continue;
             }
@@ -33,7 +45,8 @@ public static class CandidateFactory
 
         foreach (var inv in owned ?? [])
         {
-            // Doppler phases share a market name: the first catalog entry is used for colors.
+            // Doppler phases share a market name and the inventory does not say which phase it is:
+            // the first non-gem catalog entry is used for colors.
             if (!byName.TryGetValue(inv.MarketHashName, out var item))
             {
                 continue;
