@@ -58,7 +58,8 @@ tie-breaks use ordinal comparison of `itemId`; prices are integer cents.
    capped pool) that most improves the kit score (> 1e−12) inside the band.
 8. **Alternative kits** (up to 3): next ranked kits differing from every chosen kit in ≥ ⌈n/3⌉ slots
    (by skin); refined unless refinement breaks that diversity.
-9. **Per-slot alternatives** (5 cheaper, 5 pricier): same slot, similar color (|Δscore| ≤ 0.20, or
+9. **Per-slot alternatives** (5 cheaper, 5 pricier), also for locked slots (computed from the slot's
+   normal filtered candidates, issue #2): same slot, similar color (|Δscore| ≤ 0.20, or
    harmony ≥ 0.5 without target), one entry per skin/variant (exterior closest in price), with price
    delta and whether the kit stays in the band.
 10. **Swap**: `ReplacePick` (others unchanged) or `Rebalance` (lock the new item, rebuild the rest).

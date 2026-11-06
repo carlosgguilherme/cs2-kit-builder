@@ -31,8 +31,10 @@ public sealed class KitEngine
         var ctx = new Context(request);
         int n = request.Slots.Count;
 
-        // 1. Candidates per slot (all filters except price).
+        // 1. Candidates per slot (all filters except price). Alternatives use the slot's normal
+        //    candidates even when the slot is locked (the user may want to swap it again).
         var eligible = new List<Scored>[n];
+        var alternativeSource = new List<Scored>[n];
         for (int s = 0; s < n; s++)
         {
             ct.ThrowIfCancellationRequested();
@@ -48,10 +50,12 @@ public sealed class KitEngine
                 }
 
                 eligible[s] = [ctx.Score(locked)];
+                alternativeSource[s] = Filter(ctx, slotReq, catalog, applyColor: true);
                 continue;
             }
 
             eligible[s] = Filter(ctx, slotReq, catalog, applyColor: true);
+            alternativeSource[s] = eligible[s];
             if (eligible[s].Count == 0)
             {
                 return Fail(ExplainEmptySlot(ctx, slotReq, catalog, hi), lo, hi);
@@ -134,7 +138,7 @@ public sealed class KitEngine
         var alternatives = new Dictionary<string, SlotAlternatives>(StringComparer.Ordinal);
         for (int s = 0; s < n; s++)
         {
-            alternatives[request.Slots[s].Slot.Id] = SlotOptions(ctx, best, s, eligible[s], loEff, hi);
+            alternatives[request.Slots[s].Slot.Id] = SlotOptions(ctx, best, s, alternativeSource[s], loEff, hi);
         }
 
         return new KitResult(warning is null, ctx.ToProposal(best, lo, hi),

@@ -304,3 +304,19 @@ public class KitEngineTests(ITestOutputHelper output)
         return list;
     }
 }
+
+public class KitEngineRegressionTests
+{
+    [Fact]
+    public void LockedSlotStillOffersAlternatives()
+    {
+        // After "swap + rebalance" the swapped slot is locked; its alternatives carousel must not go empty.
+        var catalog = Fixtures.Catalog();
+        var cases = Fixtures.Load("kit-engine/cases.json")["cases"]!.AsArray();
+        var request = Fixtures.Request(cases.First(c => (string)c!["name"]! == "locked-item")!["request"]!);
+        var r = new KitEngine().Build(request, catalog);
+        var awp = r.AlternativesBySlot["awp"];
+        Assert.NotEmpty(awp.Cheaper.Concat(awp.Pricier));
+        Assert.DoesNotContain(awp.Cheaper.Concat(awp.Pricier), a => a.Candidate.ItemId == "awp-stripe-ft");
+    }
+}
