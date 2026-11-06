@@ -15,15 +15,15 @@ public class ClientTests
     public async Task ThrottlerRetriesAfter429ThenGivesUp()
     {
         SteamThrottlingHandler.Reset();
-        SteamThrottlingHandler.InitialBackoff = TimeSpan.FromMilliseconds(5);
+        var backoff = TimeSpan.FromMilliseconds(5);
         int calls = 0;
         var stub = new StubHandler(_ => ++calls < 3 ? new HttpResponseMessage(HttpStatusCode.TooManyRequests) : StubHandler.Json("{}"));
-        using var http = new HttpClient(new SteamThrottlingHandler(TimeSpan.Zero, maxRetries: 3) { InnerHandler = stub });
+        using var http = new HttpClient(new SteamThrottlingHandler(TimeSpan.Zero, maxRetries: 3, initialBackoff: backoff) { InnerHandler = stub });
         Assert.Equal("{}", await http.GetStringAsync("https://steamcommunity.com/x"));
         Assert.Equal(3, calls);
 
         var always429 = new StubHandler(_ => new HttpResponseMessage(HttpStatusCode.TooManyRequests));
-        using var http2 = new HttpClient(new SteamThrottlingHandler(TimeSpan.Zero, maxRetries: 1) { InnerHandler = always429 });
+        using var http2 = new HttpClient(new SteamThrottlingHandler(TimeSpan.Zero, maxRetries: 1, initialBackoff: backoff) { InnerHandler = always429 });
         await Assert.ThrowsAsync<RateLimitedException>(() => http2.GetStringAsync("https://steamcommunity.com/y"));
         SteamThrottlingHandler.Reset();
     }

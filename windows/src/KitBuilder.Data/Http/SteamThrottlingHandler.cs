@@ -11,18 +11,23 @@ public sealed class RateLimitedException(DateTimeOffset retryAfter)
 
 /// <summary>
 /// Serializes requests to Steam with a minimum interval and backs off exponentially
-/// on HTTP 429 (honoring Retry-After). Shared by every Steam client via IHttpClientFactory.
+/// on HTTP 429 (honoring Retry-After). The request schedule is shared by every handler
+/// (Steam limits per IP); the backoff values belong to each handler instance.
 /// </summary>
-public sealed class SteamThrottlingHandler(TimeSpan minInterval, int maxRetries = 3, TimeProvider? time = null)
-    : DelegatingHandler
+public sealed class SteamThrottlingHandler(
+    TimeSpan minInterval,
+    int maxRetries = 3,
+    TimeProvider? time = null,
+    TimeSpan? initialBackoff = null,
+    TimeSpan? maxBackoff = null) : DelegatingHandler
 {
     private static readonly SemaphoreSlim Gate = new(1, 1);
     private static DateTimeOffset nextAllowed = DateTimeOffset.MinValue;
     private readonly TimeProvider clock = time ?? TimeProvider.System;
 
-    public static TimeSpan InitialBackoff { get; set; } = TimeSpan.FromSeconds(30);
+    public TimeSpan InitialBackoff { get; } = initialBackoff ?? TimeSpan.FromSeconds(30);
 
-    public static TimeSpan MaxBackoff { get; set; } = TimeSpan.FromMinutes(10);
+    public TimeSpan MaxBackoff { get; } = maxBackoff ?? TimeSpan.FromMinutes(10);
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken ct)
     {

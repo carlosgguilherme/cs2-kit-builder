@@ -80,4 +80,18 @@ public class RegressionTests
         cmd.CommandText = "SELECT COUNT(*) FROM pragma_table_info('prices') WHERE name = 'volume_24h'";
         Assert.Equal(1L, (long)cmd.ExecuteScalar()!);
     }
+
+    [Fact]
+    public async Task ThrottlingBackoffIsPerHandlerNotGlobal()
+    {
+        SteamThrottlingHandler.Reset();
+        int calls = 0;
+        var stub = new StubHandler(_ => ++calls == 1 ? new HttpResponseMessage(HttpStatusCode.TooManyRequests) : StubHandler.Json("{}"));
+        using var fast = new HttpClient(new SteamThrottlingHandler(TimeSpan.Zero, maxRetries: 2, initialBackoff: TimeSpan.FromMilliseconds(1))
+            { InnerHandler = stub });
+        var sw = System.Diagnostics.Stopwatch.StartNew();
+        await fast.GetStringAsync("https://steamcommunity.com/z");
+        Assert.True(sw.ElapsedMilliseconds < 5000);
+        Assert.Equal(TimeSpan.FromSeconds(30), new SteamThrottlingHandler(TimeSpan.Zero).InitialBackoff);
+    }
 }
