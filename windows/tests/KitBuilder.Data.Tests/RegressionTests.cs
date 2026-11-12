@@ -125,4 +125,22 @@ public class RegressionTests
         Assert.Equal("steam://rungame/730/1/+csgo_econ_action_preview%20S7A9D3", Inventory.InventoryParser.FillInspectLink(
             "steam://rungame/730/1/+csgo_econ_action_preview%20S%owner_steamid%A%assetid%D3", "7", "9", new Dictionary<int, string>()));
     }
+
+    [Fact]
+    public async Task InventoryReportsItemsHiddenByTradeProtection()
+    {
+        // Samples: total_inventory_count 5, 3 + 1 items returned across two pages -> 1 hidden.
+        var db = Fx.TempDb();
+        var clock = new ManualClock(T0);
+        var stub = new StubHandler(req => StubHandler.Json(Fx.Text(req.RequestUri!.Query.Contains("start_assetid", StringComparison.Ordinal)
+            ? "samples/steam-inventory-page2.json"
+            : "samples/steam-inventory-page1.json")));
+        var client = new Inventory.SteamInventoryClient(new HttpClient(stub), db, new DataOptions(), clock);
+        var fresh = await client.LoadAsync("76561197960287930");
+        Assert.Equal(4, fresh.Items.Count);
+        Assert.Equal(1, fresh.HiddenCount);
+        var cached = await client.LoadAsync("76561197960287930");
+        Assert.True(cached.FromCache);
+        Assert.Equal(1, cached.HiddenCount);
+    }
 }

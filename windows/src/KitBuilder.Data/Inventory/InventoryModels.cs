@@ -28,12 +28,17 @@ public sealed record InventoryItem(
 
 public sealed record InventoryPage(IReadOnlyList<InventoryItem> Items, bool MoreItems, string? LastAssetId, int TotalCount);
 
+/// <summary>
+/// A loaded inventory. <see cref="HiddenCount"/>: items Steam counts but does not return, which are the
+/// ones under trade protection (hidden for 7 days after a trade); the total value is then partial.
+/// </summary>
 public sealed record InventorySnapshot(
     string SteamId64,
     IReadOnlyList<InventoryItem> Items,
     DateTimeOffset FetchedAt,
     DateTimeOffset NextRefreshAllowedAt,
-    bool FromCache);
+    bool FromCache,
+    int HiddenCount = 0);
 
 public sealed class InventoryPrivateException(string steamId)
     : Exception($"Inventory of {steamId} is private or the profile is private.")

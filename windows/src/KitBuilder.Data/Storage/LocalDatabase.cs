@@ -29,6 +29,7 @@ public sealed class LocalDatabase
               steam_id TEXT PRIMARY KEY, json TEXT NOT NULL, fetched_at INTEGER NOT NULL);
             """);
         AddColumnIfMissing(c, "prices", "volume_24h", "INTEGER");
+        AddColumnIfMissing(c, "inventories", "hidden_count", "INTEGER NOT NULL DEFAULT 0");
     }
 
     /// <summary>In-place migration for databases created by older versions.</summary>

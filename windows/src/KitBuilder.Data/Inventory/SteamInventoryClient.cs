@@ -29,6 +29,7 @@ public sealed class SteamInventoryClient(HttpClient http, LocalDatabase db, Data
         }
 
         var items = new List<InventoryItem>();
+        int total = 0;
         string? start = null;
         for (int guard = 0; guard < 50; guard++)
         {
@@ -47,6 +48,7 @@ public sealed class SteamInventoryClient(HttpClient http, LocalDatabase db, Data
 
             var page = InventoryParser.Parse(json, steamId64);
             items.AddRange(page.Items);
+            total = Math.Max(total, page.TotalCount);
             if (!page.MoreItems || page.LastAssetId is null)
             {
                 break;
@@ -55,22 +57,25 @@ public sealed class SteamInventoryClient(HttpClient http, LocalDatabase db, Data
             start = page.LastAssetId;
         }
 
+        // total_inventory_count includes trade-protected items that the public inventory hides
+        // (verified 2026-11-12: 28 counted, 22 returned, 6 received in a trade < 7 days earlier).
+        int hidden = Math.Max(0, total - items.Count);
         using (var c = db.Open())
         {
             LocalDatabase.Exec(c, """
-                INSERT INTO inventories(steam_id, json, fetched_at) VALUES ($s, $j, $t)
-                ON CONFLICT(steam_id) DO UPDATE SET json = $j, fetched_at = $t
-                """, ("$s", steamId64), ("$j", JsonSerializer.Serialize(items)), ("$t", now.ToUnixTimeSeconds()));
+                INSERT INTO inventories(steam_id, json, fetched_at, hidden_count) VALUES ($s, $j, $t, $h)
+                ON CONFLICT(steam_id) DO UPDATE SET json = $j, fetched_at = $t, hidden_count = $h
+                """, ("$s", steamId64), ("$j", JsonSerializer.Serialize(items)), ("$t", now.ToUnixTimeSeconds()), ("$h", hidden));
         }
 
-        return new InventorySnapshot(steamId64, items, now, now + options.InventoryMinInterval, false);
+        return new InventorySnapshot(steamId64, items, now, now + options.InventoryMinInterval, false, hidden);
     }
 
     private InventorySnapshot? ReadCache(string steamId64)
     {
         using var c = db.Open();
         using var cmd = c.CreateCommand();
-        cmd.CommandText = "SELECT json, fetched_at FROM inventories WHERE steam_id = $s";
+        cmd.CommandText = "SELECT json, fetched_at, hidden_count FROM inventories WHERE steam_id = $s";
         cmd.Parameters.AddWithValue("$s", steamId64);
         using var r = cmd.ExecuteReader();
         if (!r.Read())
@@ -80,6 +85,6 @@ public sealed class SteamInventoryClient(HttpClient http, LocalDatabase db, Data
 
         var at = DateTimeOffset.FromUnixTimeSeconds(r.GetInt64(1));
         var items = JsonSerializer.Deserialize<List<InventoryItem>>(r.GetString(0)) ?? [];
-        return new InventorySnapshot(steamId64, items, at, at + options.InventoryMinInterval, true);
+        return new InventorySnapshot(steamId64, items, at, at + options.InventoryMinInterval, true, r.GetInt32(2));
     }
 }
