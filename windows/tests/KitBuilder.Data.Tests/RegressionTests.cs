@@ -94,4 +94,35 @@ public class RegressionTests
         Assert.True(sw.ElapsedMilliseconds < 5000);
         Assert.Equal(TimeSpan.FromSeconds(30), new SteamThrottlingHandler(TimeSpan.Zero).InitialBackoff);
     }
+
+    [Fact]
+    public void InspectLinkPropertyPlaceholdersAreFilled()
+    {
+        // Since 2025 Steam sends "csgo_econ_action_preview%20%propid:6%"; %propid:N% must be
+        // replaced by the asset's property N ("Item Certificate"), otherwise the link is broken.
+        var page = Inventory.InventoryParser.Parse(Fx.Text("recorded/steam-inventory.sanitized.2026-11-12.json"), "76561197960287930");
+        Assert.Equal(3, page.Items.Count);
+        var mp5 = page.Items.Single(i => i.MarketHashName == "MP5-SD | Lime Hex (Factory New)");
+        Assert.Equal("steam://run/730//+csgo_econ_action_preview%20" + new string('C', 76), mp5.InspectLink);
+        Assert.Equal(0.0316407866775989532, mp5.Float!.Value, 12);
+        Assert.Equal(939, mp5.PaintSeed);
+        Assert.All(page.Items, i => Assert.DoesNotContain("%propid:", i.InspectLink ?? "", StringComparison.Ordinal));
+
+        var ak = page.Items.Single(i => i.MarketHashName == "AK-47");
+        Assert.NotEmpty(ak.Stickers);
+        Assert.All(ak.Stickers, s => Assert.NotEqual("?", s.Name));
+        Assert.Null(ak.Float);
+
+        var sticker = page.Items.Single(i => i.MarketHashName.StartsWith("Sticker |", StringComparison.Ordinal));
+        Assert.Equal("steam://run/730//+csgo_econ_action_preview%20" + new string('A', 54), sticker.InspectLink);
+    }
+
+    [Fact]
+    public void InspectLinkWithAMissingPropertyIsDropped()
+    {
+        Assert.Null(Inventory.InventoryParser.FillInspectLink("steam://run/730//+csgo_econ_action_preview%20%propid:6%",
+            "1", "2", new Dictionary<int, string>()));
+        Assert.Equal("steam://rungame/730/1/+csgo_econ_action_preview%20S7A9D3", Inventory.InventoryParser.FillInspectLink(
+            "steam://rungame/730/1/+csgo_econ_action_preview%20S%owner_steamid%A%assetid%D3", "7", "9", new Dictionary<int, string>()));
+    }
 }

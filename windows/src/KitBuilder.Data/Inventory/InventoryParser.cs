@@ -44,7 +44,7 @@ public static partial class InventoryParser
             }
 
             props.TryGetValue(assetId, out var p);
-            items.Add(ToItem(assetId, d, steamId64, p.Float, p.Seed));
+            items.Add(ToItem(assetId, d, steamId64, p));
         }
 
         return new InventoryPage(items, more, last, total);
@@ -53,9 +53,14 @@ public static partial class InventoryParser
     private static string Key(JsonElement e) =>
         e.GetProperty("classid").GetString() + "_" + (e.TryGetProperty("instanceid", out var i) ? i.GetString() : "0");
 
-    private static Dictionary<string, (double? Float, int? Seed)> ParseAssetProperties(JsonElement root)
+    /// <summary>Per-asset properties: float, pattern seed and every raw value by property id.</summary>
+    private sealed record AssetProps(double? Float, int? Seed, IReadOnlyDictionary<int, string> Values);
+
+    private static readonly AssetProps NoProps = new(null, null, new Dictionary<int, string>());
+
+    private static Dictionary<string, AssetProps> ParseAssetProperties(JsonElement root)
     {
-        var map = new Dictionary<string, (double?, int?)>(StringComparer.Ordinal);
+        var map = new Dictionary<string, AssetProps>(StringComparer.Ordinal);
         if (!root.TryGetProperty("asset_properties", out var list) || list.ValueKind != JsonValueKind.Array)
         {
             return map;
@@ -70,9 +75,18 @@ public static partial class InventoryParser
 
             double? fl = null;
             int? seed = null;
+            var values = new Dictionary<int, string>();
             foreach (var p in ps.EnumerateArray())
             {
                 var name = p.TryGetProperty("name", out var n) ? n.GetString() ?? "" : "";
+                foreach (var field in (string[])["string_value", "int_value", "float_value"])
+                {
+                    if (PropertyId(p) >= 0 && p.TryGetProperty(field, out var raw))
+                    {
+                        values[PropertyId(p)] = raw.ValueKind == JsonValueKind.String ? raw.GetString() ?? "" : raw.GetRawText();
+                    }
+                }
+
                 if (p.TryGetProperty("float_value", out var fv) && (name.Contains("Wear", StringComparison.OrdinalIgnoreCase)
                         || PropertyId(p) == 2)
                     && double.TryParse(fv.ValueKind == JsonValueKind.String ? fv.GetString() : fv.GetRawText(),
@@ -89,7 +103,7 @@ public static partial class InventoryParser
                 }
             }
 
-            map[idEl.GetString()!] = (fl, seed);
+            map[idEl.GetString()!] = new AssetProps(fl, seed, values);
         }
 
         return map;
@@ -98,8 +112,9 @@ public static partial class InventoryParser
     private static int PropertyId(JsonElement p) =>
         p.TryGetProperty("propertyid", out var id) && id.ValueKind == JsonValueKind.Number ? id.GetInt32() : -1;
 
-    private static InventoryItem ToItem(string assetId, JsonElement d, string steamId64, double? fl, int? seed)
+    private static InventoryItem ToItem(string assetId, JsonElement d, string steamId64, AssetProps? props)
     {
+        props ??= NoProps;
         string? rarity = null, rarityColor = null, exterior = null, weapon = null, typeTag = null, quality = null;
         if (d.TryGetProperty("tags", out var tags))
         {
@@ -169,8 +184,7 @@ public static partial class InventoryParser
                 var link = act.TryGetProperty("link", out var l) ? l.GetString() : null;
                 if (link is not null && link.Contains("csgo_econ_action_preview", StringComparison.Ordinal))
                 {
-                    inspect = link.Replace("%owner_steamid%", steamId64, StringComparison.Ordinal)
-                        .Replace("%assetid%", assetId, StringComparison.Ordinal);
+                    inspect = FillInspectLink(link, steamId64, assetId, props.Values);
                     break;
                 }
             }
@@ -185,10 +199,32 @@ public static partial class InventoryParser
             rarity, rarityColor, DomainNames.ParseExterior(exterior),
             quality == "strange" || mhn.StartsWith("StatTrak", StringComparison.Ordinal) || mhn.Contains("★ StatTrak", StringComparison.Ordinal),
             quality == "tournament" || mhn.StartsWith("Souvenir", StringComparison.Ordinal),
-            nameTag, stickers, charms, inspect, fl, seed,
+            nameTag, stickers, charms, inspect, props.Float, props.Seed,
             d.TryGetProperty("icon_url", out var icon) ? ImageBase + icon.GetString() : null,
             d.TryGetProperty("tradable", out var tr) && tr.GetInt32() == 1,
             d.TryGetProperty("marketable", out var mk) && mk.GetInt32() == 1);
+    }
+
+    /// <summary>
+    /// Fills an inspect link template: the old <c>%owner_steamid%</c>/<c>%assetid%</c> placeholders and
+    /// the current <c>%propid:N%</c> ones (property N of the asset, e.g. 6 = "Item Certificate").
+    /// Returns null when a property is missing, instead of a broken link.
+    /// </summary>
+    public static string? FillInspectLink(string template, string steamId64, string assetId, IReadOnlyDictionary<int, string> properties)
+    {
+        bool missing = false;
+        var link = PropIdPlaceholder().Replace(template, m =>
+        {
+            if (properties.TryGetValue(int.Parse(m.Groups[1].Value, CultureInfo.InvariantCulture), out var v))
+            {
+                return v;
+            }
+
+            missing = true;
+            return m.Value;
+        });
+        return missing ? null : link.Replace("%owner_steamid%", steamId64, StringComparison.Ordinal)
+            .Replace("%assetid%", assetId, StringComparison.Ordinal);
     }
 
     public static ItemCategory CategoryFromTypeTag(string? tag) => tag switch
@@ -225,6 +261,9 @@ public static partial class InventoryParser
             yield return new AppliedItem(i < names.Count ? names[i] : "?", i < images.Count ? images[i] : null);
         }
     }
+
+    [GeneratedRegex(@"%propid:(\d+)%")]
+    private static partial Regex PropIdPlaceholder();
 
     [GeneratedRegex(@"Name Tag:\s*''(.*)''")]
     private static partial Regex NameTag();

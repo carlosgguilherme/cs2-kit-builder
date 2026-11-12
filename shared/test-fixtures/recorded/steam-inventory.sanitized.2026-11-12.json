@@ -1,0 +1,391 @@
+{
+ "_note": "Derived from a real /inventory/{steamid}/730/2 response recorded on 2026-11-12: structure and field values are verbatim except identifiers (assetid, classid, instanceid, market_bucket ids), inspect payloads and Item Certificate values, which were replaced with fictitious values of the same shape.",
+ "assets": [
+  {
+   "appid": 730,
+   "contextid": "2",
+   "assetid": "9000000001",
+   "classid": "101",
+   "instanceid": "0",
+   "amount": "1"
+  },
+  {
+   "appid": 730,
+   "contextid": "2",
+   "assetid": "9000000002",
+   "classid": "102",
+   "instanceid": "0",
+   "amount": "1"
+  },
+  {
+   "appid": 730,
+   "contextid": "2",
+   "assetid": "9000000003",
+   "classid": "103",
+   "instanceid": "0",
+   "amount": "1"
+  }
+ ],
+ "descriptions": [
+  {
+   "appid": 730,
+   "classid": "101",
+   "instanceid": "0",
+   "currency": 0,
+   "background_color": "393b3e",
+   "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGIGz3UqlXOLrxM-vMGmW8VNxu5Dx60noTyL8jsPz-R1I_82iYaloH_iWFlicyOl-pK8_HH22xxl34DiHz9mreS-TblN2C5FwFOQN4Rjpx9C1Yunh4gfbg91M02yg2SHKjRF4",
+   "descriptions": [
+    {
+     "type": "html",
+     "value": "Exterior: Factory New",
+     "name": "exterior_wear"
+    },
+    {
+     "type": "html",
+     "value": " ",
+     "name": "blank"
+    },
+    {
+     "type": "html",
+     "value": "Often imitated but never equaled, the iconic MP5 is perhaps the most versatile and popular SMG in the world. This SD variant features an integrated silencer, making an already formidable weapon whisper-quiet. It has been spray-painted with a blue and green hex pattern.\n\n<i>Hex marks the spot</i>",
+     "name": "description"
+    },
+    {
+     "type": "html",
+     "value": " ",
+     "name": "blank"
+    },
+    {
+     "type": "html",
+     "value": "The Ascent Collection",
+     "color": "9da1a9",
+     "name": "itemset_name"
+    },
+    {
+     "type": "html",
+     "value": " ",
+     "name": "blank"
+    }
+   ],
+   "tradable": 1,
+   "actions": [
+    {
+     "link": "steam://run/730//+csgo_econ_action_preview%20%propid:6%",
+     "name": "Inspect in Game..."
+    }
+   ],
+   "name": "MP5-SD | Lime Hex",
+   "name_color": "b0c3d9",
+   "type": "Consumer Grade SMG",
+   "market_name": "MP5-SD | Lime Hex (Factory New)",
+   "market_hash_name": "MP5-SD | Lime Hex (Factory New)",
+   "market_actions": [
+    {
+     "link": "steam://run/730//+csgo_econ_action_preview%20%propid:6%",
+     "name": "Inspect in Game..."
+    }
+   ],
+   "commodity": 0,
+   "market_tradable_restriction": 7,
+   "market_marketable_restriction": 7,
+   "marketable": 1,
+   "tags": [
+    {
+     "category": "Type",
+     "internal_name": "CSGO_Type_SMG",
+     "localized_category_name": "Type",
+     "localized_tag_name": "SMG"
+    },
+    {
+     "category": "Weapon",
+     "internal_name": "weapon_mp5sd",
+     "localized_category_name": "Weapon",
+     "localized_tag_name": "MP5-SD"
+    },
+    {
+     "category": "ItemSet",
+     "internal_name": "set_timed_drops_cool",
+     "localized_category_name": "Collection",
+     "localized_tag_name": "The Ascent Collection"
+    },
+    {
+     "category": "Quality",
+     "internal_name": "normal",
+     "localized_category_name": "Category",
+     "localized_tag_name": "Normal"
+    },
+    {
+     "category": "Rarity",
+     "internal_name": "Rarity_Common_Weapon",
+     "localized_category_name": "Quality",
+     "localized_tag_name": "Consumer Grade",
+     "color": "b0c3d9"
+    },
+    {
+     "category": "Exterior",
+     "internal_name": "WearCategory0",
+     "localized_category_name": "Exterior",
+     "localized_tag_name": "Factory New"
+    }
+   ],
+   "sealed": 0,
+   "market_bucket_group_name": "MP5-SD | Lime Hex",
+   "market_bucket_group_id": "G1000000",
+   "sealed_type": 0,
+   "market_name_inside_group": "Factory New",
+   "market_bucket_id": "G1000000"
+  },
+  {
+   "appid": 730,
+   "classid": "102",
+   "instanceid": "0",
+   "currency": 0,
+   "background_color": "3e3d3c",
+   "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJKz2lu_XuWbwcuyMESA4Fdl-4nnpU7iQA3-kKnh9nYMoaCvMfxudKGVC2bIwLku5bFsHn2xzU1w4W_Tm9-ucn2eaQZxWcYmR-IU8k7vea-fOvM",
+   "descriptions": [
+    {
+     "type": "html",
+     "value": "Powerful and reliable, the AK-47 is one of the most popular assault rifles in the world. It is most deadly in short, controlled bursts of fire.",
+     "name": "description"
+    },
+    {
+     "type": "html",
+     "value": " ",
+     "name": "blank"
+    },
+    {
+     "type": "html",
+     "value": "<br><div id=\"sticker_info\" class=\"sticker_info\" style=\"border: 2px solid rgb(102, 102, 102); border-radius: 6px; width=100; margin:4px; padding:8px;\"><center><img width=64 height=48 src=\"https://cdn.steamstatic.com/apps/730/icons/econ/stickers/paris2023/mngz.e8ed68c9edfb3d2eb850eab7291d1cc35a62b155.png\" title=\"Sticker: The MongolZ | Paris 2023\"><br>Sticker: The MongolZ | Paris 2023</center></div>",
+     "name": "sticker_info"
+    }
+   ],
+   "tradable": 0,
+   "actions": [
+    {
+     "link": "steam://run/730//+csgo_econ_action_preview%20%propid:6%",
+     "name": "Inspect in Game..."
+    }
+   ],
+   "name": "AK-47",
+   "name_color": "ded6cc",
+   "type": "Stock Rifle",
+   "market_name": "AK-47",
+   "market_hash_name": "AK-47",
+   "market_actions": [
+    {
+     "link": "steam://run/730//+csgo_econ_action_preview%20%propid:6%",
+     "name": "Inspect in Game..."
+    }
+   ],
+   "commodity": 0,
+   "market_tradable_restriction": 7,
+   "market_marketable_restriction": 7,
+   "marketable": 0,
+   "tags": [
+    {
+     "category": "Type",
+     "internal_name": "CSGO_Type_Rifle",
+     "localized_category_name": "Type",
+     "localized_tag_name": "Rifle"
+    },
+    {
+     "category": "Weapon",
+     "internal_name": "weapon_ak47",
+     "localized_category_name": "Weapon",
+     "localized_tag_name": "AK-47"
+    },
+    {
+     "category": "Quality",
+     "internal_name": "normal",
+     "localized_category_name": "Category",
+     "localized_tag_name": "Normal"
+    },
+    {
+     "category": "Rarity",
+     "internal_name": "Rarity_Default_Weapon",
+     "localized_category_name": "Quality",
+     "localized_tag_name": "Stock",
+     "color": "ded6cc"
+    },
+    {
+     "category": "Exterior",
+     "internal_name": "WearCategoryNA",
+     "localized_category_name": "Exterior",
+     "localized_tag_name": "Not Painted"
+    },
+    {
+     "category": "Tournament",
+     "internal_name": "Tournament21",
+     "localized_category_name": "Tournament",
+     "localized_tag_name": "BLAST.tv Paris 2023"
+    },
+    {
+     "category": "TournamentTeam",
+     "internal_name": "Team122",
+     "localized_category_name": "Team",
+     "localized_tag_name": "The MongolZ"
+    }
+   ],
+   "sealed": 0,
+   "market_bucket_group_name": "AK-47",
+   "market_bucket_group_id": "G2000000",
+   "sealed_type": 0,
+   "market_name_inside_group": "Normal",
+   "market_bucket_id": "G2000000"
+  },
+  {
+   "appid": 730,
+   "classid": "103",
+   "instanceid": "0",
+   "currency": 0,
+   "background_color": "2d3042",
+   "icon_url": "i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttyVfPaERSR0Wqmu7LAocGJai0ki7VeTHjNqgJ3KEtwYnp8j9_lupFB7zzcPkq3YD7ar_OfM-eaaWDT-Swrx0sbA6HHC1kBhw52XdmIn7dWXXMFGci_6WWQ",
+   "descriptions": [
+    {
+     "type": "html",
+     "value": "This item commemorates the BLAST.tv Paris 2023 CS:GO Championship.",
+     "color": "ffd700",
+     "name": "attribute"
+    },
+    {
+     "type": "html",
+     "value": " ",
+     "name": "blank"
+    },
+    {
+     "type": "html",
+     "value": "This sticker can be applied to any weapon you own and can be scraped to look more worn. You can scrape the same sticker multiple times, making it a bit more worn each time, until it is removed from the weapon.",
+     "name": "description"
+    },
+    {
+     "type": "html",
+     "value": " ",
+     "name": "blank"
+    }
+   ],
+   "tradable": 1,
+   "actions": [
+    {
+     "link": "steam://run/730//+csgo_econ_action_preview%20AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+     "name": "Inspect in Game..."
+    }
+   ],
+   "name": "Sticker | Into The Breach | Paris 2023",
+   "name_color": "4b69ff",
+   "type": "High Grade Sticker",
+   "market_name": "Sticker | Into The Breach | Paris 2023",
+   "market_hash_name": "Sticker | Into The Breach | Paris 2023",
+   "market_actions": [
+    {
+     "link": "steam://run/730//+csgo_econ_action_preview%20AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+     "name": "Inspect in Game..."
+    }
+   ],
+   "commodity": 1,
+   "market_tradable_restriction": 7,
+   "market_marketable_restriction": 7,
+   "marketable": 1,
+   "tags": [
+    {
+     "category": "Type",
+     "internal_name": "CSGO_Tool_Sticker",
+     "localized_category_name": "Type",
+     "localized_tag_name": "Sticker"
+    },
+    {
+     "category": "Quality",
+     "internal_name": "normal",
+     "localized_category_name": "Category",
+     "localized_tag_name": "Normal"
+    },
+    {
+     "category": "Rarity",
+     "internal_name": "Rarity_Rare",
+     "localized_category_name": "Quality",
+     "localized_tag_name": "High Grade",
+     "color": "4b69ff"
+    },
+    {
+     "category": "StickerCategory",
+     "internal_name": "TeamLogo",
+     "localized_category_name": "Sticker Type",
+     "localized_tag_name": "Team Logo"
+    },
+    {
+     "category": "Tournament",
+     "internal_name": "Tournament21",
+     "localized_category_name": "Tournament",
+     "localized_tag_name": "BLAST.tv Paris 2023"
+    },
+    {
+     "category": "TournamentTeam",
+     "internal_name": "Team118",
+     "localized_category_name": "Team",
+     "localized_tag_name": "Into The Breach"
+    },
+    {
+     "category": "StickerCapsule",
+     "internal_name": "crate_sticker_pack_paris2023_legends_collection",
+     "localized_category_name": "Sticker Collection",
+     "localized_tag_name": "Paris 2023 Legends Stickers"
+    }
+   ],
+   "sealed": 0,
+   "market_bucket_group_name": "Sticker | Into The Breach | Paris 2023",
+   "market_bucket_group_id": "G3000000",
+   "sealed_type": 0,
+   "market_name_inside_group": "Sticker",
+   "market_bucket_id": "G3000000"
+  }
+ ],
+ "asset_properties": [
+  {
+   "appid": 730,
+   "contextid": "2",
+   "assetid": "9000000001",
+   "asset_properties": [
+    {
+     "propertyid": 1,
+     "int_value": "939",
+     "name": "Pattern Template"
+    },
+    {
+     "propertyid": 2,
+     "float_value": "0.0316407866775989532",
+     "name": "Wear Rating"
+    },
+    {
+     "propertyid": 6,
+     "string_value": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+     "name": "Item Certificate"
+    }
+   ]
+  },
+  {
+   "appid": 730,
+   "contextid": "2",
+   "assetid": "9000000002",
+   "asset_properties": [
+    {
+     "propertyid": 6,
+     "string_value": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+     "name": "Item Certificate"
+    }
+   ],
+   "asset_accessories": [
+    {
+     "classid": "5327976177",
+     "parent_relationship_properties": [
+      {
+       "propertyid": 4,
+       "float_value": "0"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "total_inventory_count": 3,
+ "success": 1,
+ "rwgrsn": -2
+}

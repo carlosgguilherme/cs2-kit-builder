@@ -93,27 +93,33 @@ The rate is derived from Steam itself: median of (BRL ÷ USD) over liquid refere
 - The app: one request at a time to steamcommunity.com, ≥ 3.5 s apart, exponential backoff on 429
   (30 s doubling to 10 min, honoring `Retry-After`), SQLite cache with a 6 h TTL, stale prices flagged.
 
-## 4. Inventory — `/inventory/{steamid64}/730/2` — **unverified**
+## 4. Inventory — `/inventory/{steamid64}/730/2` — verified 2026-11-12
 
 ```
 https://steamcommunity.com/inventory/{steamid64}/730/2?l=english&count=2000[&start_assetid=<last_assetid>]
 ```
 
-- From the cloud test machine a request returned **403** (private profile or blocked IP; not
-  conclusive). Run the probe with your own public profile to record a real page.
-- Implemented format: `assets[]` + `descriptions[]` joined on `classid`+`instanceid`; `more_items` and
-  `last_assetid` for pagination; `total_inventory_count`. Per item: `market_hash_name`, `tags`
-  (Type/Weapon/Quality/Rarity/Exterior), stickers and charms from the `sticker_info` /
-  `keychain_info` HTML blocks, name tag from `fraudwarnings`, inspect link from `actions`
-  (`%owner_steamid%` and `%assetid%` replaced).
-- **Float / pattern**: parsed from `asset_properties` (`propertyid` 2 / "Wear Rating" = float,
-  `propertyid` 1 / "Pattern Template" = seed) **when present**. If the real response has no such block,
-  the app shows only the exterior; an optional `IFloatProvider` (off by default, no paid service) is
-  the documented extension point.
+Verified with a real public inventory (HTTP 200, 22 items; sanitized excerpt in
+`shared/test-fixtures/recorded/steam-inventory.sanitized.2026-11-12.json`, identifiers replaced).
+
+- Top-level fields: `assets`, `descriptions`, `asset_properties`, `total_inventory_count`, `success`,
+  `rwgrsn`; `more_items`/`last_assetid` only when there is another page. Assets and descriptions are
+  joined on `classid`+`instanceid`.
+- **Float / pattern are available** in `asset_properties` per asset: `propertyid` 1 "Pattern Template"
+  (`int_value`), 2 "Wear Rating" (`float_value`, full precision), 6 "Item Certificate"
+  (`string_value`, hex). Only painted weapons have 1 and 2; most items have 6.
+- **Inspect links** (`actions[].link`) no longer use `%owner_steamid%`/`%assetid%`:
+  `steam://run/730//+csgo_econ_action_preview%20%propid:6%` (placeholder filled from property 6) or
+  `…preview%20<hex payload>` (complete). `%propid:N%` handling: issue #7.
+- Stickers: `sticker_info` HTML block, one `<img … title="Sticker: <name>">` per sticker followed by
+  `Sticker: <name>, <name>`. Charms: `keychain_info` block (not present in the verified inventory).
+- **Trade protection:** `total_inventory_count` (28) was larger than the returned assets (22). The owner
+  confirmed the 6 missing items were received in a trade less than 7 days earlier; trade-protected
+  items are hidden from the public inventory for 7 days. `/inventory/{id}/730/16` returned no assets.
 - 403 / `null` body → "inventory is private" screen. One full load per profile every 10 minutes
   (configurable), cached in SQLite.
 
-## 5. Profile resolution — **unverified**
+## 5. Profile resolution — `/profiles/<id>` verified 2026-11-12; vanity **unverified**
 
 SteamID64 or `/profiles/<id>` are used directly. Vanity names (`/id/<name>`) are resolved without an
 API key through `https://steamcommunity.com/id/<name>/?xml=1` → `<steamID64>…</steamID64>`.
