@@ -14,7 +14,8 @@ tie-breaks use ordinal comparison of `itemId`; prices are integer cents.
   `d = sqrt((0.5·ΔL)² + Δa² + Δb²)` (lightness half-weighted: images contain shading).
 - `sigma(t) = 0.08 + 0.17·t`, `threshold(t) = 0.45 − 0.35·t`, tolerance `t ∈ [0,1]` (0 strict, 1 free).
 - `colorScore = max(Σ wᵢ·simᵢ, maxᵢ simᵢ·min(1, sqrt(wᵢ/0.20)))`, `simᵢ = exp(−(dᵢ/sigma)²)`;
-  ×0.9 when `isMultiColor`. No profile → 0.
+  for a colored target (chroma ≥ 0.05) `simᵢ ×= min(1, chromaᵢ / (0.5·targetChroma))`, so gray parts
+  never count towards a color (issue #9); ×0.9 when `isMultiColor`. No profile → 0.
 - Signature color of a skin: the heaviest palette color with chroma ≥ 0.05, else the heaviest color.
 - Harmony of two skins: missing signature → 0.5; either signature with chroma < 0.05 → 0.7;
   else `exp(−(d/0.15)²)`.

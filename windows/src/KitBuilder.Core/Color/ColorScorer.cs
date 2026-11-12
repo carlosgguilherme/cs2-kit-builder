@@ -39,11 +39,19 @@ public static class ColorScorer
         }
 
         double sigma = Sigma(tolerance);
+        // For a colored target, a palette color counts in proportion to its own chroma (full at half the
+        // target's chroma): gray parts of a weapon must not make it "blue" or "red" (issue #9).
+        double chromaRef = target.Chroma >= SkinColorProfile.ColoredChroma ? 0.5 * target.Chroma : 0;
         double area = 0, accent = 0;
         foreach (var c in profile.Colors)
         {
             double d = Distance(target, c.Lab) / sigma;
             double sim = Math.Exp(-d * d);
+            if (chromaRef > 0)
+            {
+                sim *= Math.Min(1.0, c.Lab.Chroma / chromaRef);
+            }
+
             area += c.Weight * sim;
             accent = Math.Max(accent, sim * Math.Min(1.0, Math.Sqrt(c.Weight / 0.20)));
         }

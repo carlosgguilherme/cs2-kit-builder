@@ -66,4 +66,20 @@ public class ColorTests
         Assert.True(ColorScorer.Harmony(red, blue) < 0.1);
         Assert.Equal(0.7, ColorScorer.Harmony(red, black));
     }
+
+    [Fact]
+    public void NeutralAndOffHuePalettesDoNotMatchAColoredTarget()
+    {
+        // Exact palettes from the published color index (data-20261109); target "#1e88e5" (blue).
+        var blue = OkLab.FromHex("#1e88e5");
+        var emeraldPinstripe = Profile(false, ("#363531", 0.7278), ("#63645d", 0.2722));
+        var greenLaminate = Profile(false, ("#353531", 0.5505), ("#64645d", 0.2032), ("#596441", 0.1251), ("#67945b", 0.1212));
+        var blueLaminate = Profile(false, ("#343433", 0.5483), ("#5f6061", 0.2867), ("#405984", 0.1131), ("#577eb2", 0.0519));
+        double threshold = ColorScorer.Threshold(0.5);
+        Assert.True(ColorScorer.Score(blue, emeraldPinstripe, 0.5) < threshold, "gray skin must not count as blue");
+        Assert.True(ColorScorer.Score(blue, greenLaminate, 0.5) < threshold, "green skin must not count as blue");
+        Assert.True(ColorScorer.Score(blue, blueLaminate, 0.5) >= threshold, "blue skin must still count as blue");
+        // Neutral targets keep matching neutral skins.
+        Assert.True(ColorScorer.Score(OkLab.FromHex("#363531"), emeraldPinstripe, 0.5) > 0.8);
+    }
 }
