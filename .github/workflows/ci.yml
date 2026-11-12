@@ -41,7 +41,7 @@ jobs:
         shell: pwsh
         run: |
           $log = "$env:LOCALAPPDATA\KitBuilder\logs\app.log"
-          $p = Write-Host "Resource files: $((Get-ChildItem publish -Filter *.pri).Name -join ", ")"
+          Write-Host "Resource files: $((Get-ChildItem publish -Filter *.pri).Name -join ", ")"
           $p = Start-Process -FilePath publish\KitBuilder.App.exe -PassThru
           Start-Sleep -Seconds 20
           $failure = $null
