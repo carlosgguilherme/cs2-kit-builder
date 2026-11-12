@@ -2,10 +2,12 @@
   <Folder Name="/src/">
     <Project Path="src/KitBuilder.Core/KitBuilder.Core.csproj" />
     <Project Path="src/KitBuilder.Data/KitBuilder.Data.csproj" />
+    <Project Path="src/KitBuilder.Presentation/KitBuilder.Presentation.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/KitBuilder.Core.Tests/KitBuilder.Core.Tests.csproj" />
     <Project Path="tests/KitBuilder.Data.Tests/KitBuilder.Data.Tests.csproj" />
+    <Project Path="tests/KitBuilder.Presentation.Tests/KitBuilder.Presentation.Tests.csproj" />
   </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/KitBuilder.Cli/KitBuilder.Cli.csproj" />
