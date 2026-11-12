@@ -6,9 +6,12 @@ using KitBuilder.Core.Color;
 namespace KitBuilder.Data.Catalog;
 
 /// <summary>Loads the item catalog (ByMykel) and the color index (data release), both cached.</summary>
-public sealed class CatalogService(CachedDownloader downloader, DataOptions options)
+public sealed class CatalogService(CachedDownloader downloader, DataOptions options, DataReleaseLocator? locator = null)
 {
-    /// <summary>Color index published by the data pipeline (release asset URL or a local file path).</summary>
+    /// <summary>
+    /// Color index location (URL or local file path). When null, the newest data release is
+    /// located through <see cref="DataReleaseLocator"/>.
+    /// </summary>
     public string? ColorIndexUrl { get; set; }
 
     public async Task<(IReadOnlyList<CatalogItem> Items, DateTimeOffset CheckedAt, string Locale)> LoadItemsAsync(CancellationToken ct = default)
@@ -33,15 +36,16 @@ public sealed class CatalogService(CachedDownloader downloader, DataOptions opti
 
     public async Task<IReadOnlyDictionary<string, SkinColorProfile>> LoadColorIndexAsync(CancellationToken ct = default)
     {
-        if (ColorIndexUrl is null)
+        var source = ColorIndexUrl ?? (locator is null ? null : await locator.GetColorIndexUrlAsync(ct).ConfigureAwait(false));
+        if (source is null)
         {
             return new Dictionary<string, SkinColorProfile>();
         }
 
-        // A local path is accepted for development (before a data release exists).
-        var path = File.Exists(ColorIndexUrl)
-            ? ColorIndexUrl
-            : (await downloader.GetAsync(ColorIndexUrl, options.CatalogCheckInterval, ct).ConfigureAwait(false)).FilePath;
+        // A local path is accepted for development.
+        var path = File.Exists(source)
+            ? source
+            : (await downloader.GetAsync(source, options.CatalogCheckInterval, ct).ConfigureAwait(false)).FilePath;
         await using var fs = File.OpenRead(path);
         return ColorIndexParser.Parse(fs);
     }

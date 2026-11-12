@@ -11,6 +11,9 @@ public sealed class DataOptions
     /// <summary>Catalog locale. ByMykel has no pt-BR folder today, so the parser falls back to "en".</summary>
     public IReadOnlyList<string> CatalogLocales { get; set; } = ["pt-BR", "en"];
 
+    /// <summary>GitHub repository ("owner/name") whose data-* releases carry color-index.json.</summary>
+    public string DataRepository { get; set; } = "carlosgguilherme/cs2-kit-builder";
+
     public TimeSpan CatalogCheckInterval { get; set; } = TimeSpan.FromDays(1);
 
     public TimeSpan PriceTtl { get; set; } = TimeSpan.FromHours(6);

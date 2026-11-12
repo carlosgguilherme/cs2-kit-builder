@@ -4,7 +4,7 @@
 //       Full Steam crawl (~1,600 requests, ~1.5 h with the built-in throttling; resumable).
 //   dotnet run --project windows/tools/KitBuilder.Cli -- kit --budget 200 --color "#d32f2f" \
 //       --slots ak47,m4,awp,deagle,pistol [--tolerance 10] [--color-tolerance 0.5] [--seed 0] \
-//       [--colors <color-index.json path or URL>] [--data <dir>] [--price-snapshot <file>]
+//       [--colors <color-index.json path or URL; default: newest data release>] [--data <dir>] [--price-snapshot <file>]
 //       --price-snapshot: JSON object { "market hash name": priceInBRL } used instead of the
 //       Steam cache (offline experiments only).
 using System.Diagnostics;

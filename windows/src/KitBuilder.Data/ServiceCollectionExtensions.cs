@@ -30,7 +30,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(sp => new CachedDownloader(
             sp.GetRequiredService<IHttpClientFactory>().CreateClient(CatalogClient), sp.GetRequiredService<LocalDatabase>(),
             Path.Combine(options.DataDirectory, "cache")));
-        services.AddSingleton<CatalogService>();
+        services.AddSingleton(sp => new DataReleaseLocator(
+            sp.GetRequiredService<IHttpClientFactory>().CreateClient(CatalogClient), sp.GetRequiredService<LocalDatabase>(), options));
+        services.AddSingleton(sp => new CatalogService(
+            sp.GetRequiredService<CachedDownloader>(), options, sp.GetRequiredService<DataReleaseLocator>()));
         services.AddSingleton<IPriceProvider>(sp => new SteamMarketPriceProvider(
             sp.GetRequiredService<IHttpClientFactory>().CreateClient(SteamClient), sp.GetRequiredService<LocalDatabase>(), options));
         services.AddSingleton(sp => new SteamInventoryClient(

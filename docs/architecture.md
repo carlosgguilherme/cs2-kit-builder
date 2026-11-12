@@ -17,7 +17,8 @@
 ## Data flow
 
 1. `CatalogService` downloads ByMykel `skins_not_grouped.json` (ETag, at most daily) and the
-   `color-index.json` release asset; both work offline from cache.
+   `color-index.json` asset of the newest `data-*` release (located by `DataReleaseLocator`);
+   both work offline from cache.
 2. `SteamMarketPriceProvider` keeps a SQLite price table fresh in the background (paginated search,
    resumable) and fetches single items on demand (`priceoverview`). All Steam traffic goes through
    `SteamThrottlingHandler` (serialized, ≥ 3.5 s apart, backoff on 429).
