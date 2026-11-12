@@ -12,6 +12,10 @@ public partial class App : Application
 
     public App()
     {
+        UnhandledException += (_, e) => AppLog.Write("Unhandled UI exception: " + e.Message, e.Exception);
+        AppDomain.CurrentDomain.UnhandledException += (_, e) => AppLog.Write("Unhandled exception", e.ExceptionObject as Exception);
+        TaskScheduler.UnobservedTaskException += (_, e) => AppLog.Write("Unobserved task exception", e.Exception);
+        AppLog.Write($"Starting KitBuilder {typeof(App).Assembly.GetName().Version}");
         InitializeComponent();
         Services = new ServiceCollection()
             .AddKitBuilderData()
@@ -26,7 +30,16 @@ public partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        window = new MainWindow();
-        window.Activate();
+        try
+        {
+            window = new MainWindow();
+            window.Activate();
+            AppLog.Write("Main window activated");
+        }
+        catch (Exception e)
+        {
+            AppLog.Write("Failed to create the main window", e);
+            throw;
+        }
     }
 }

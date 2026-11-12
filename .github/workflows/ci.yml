@@ -40,14 +40,26 @@ jobs:
       - name: Smoke test (the app starts and stays open)
         shell: pwsh
         run: |
-          $env:LOCALAPPDATA = "$env:RUNNER_TEMP\appdata"
+          $log = "$env:LOCALAPPDATA\KitBuilder\logs\app.log"
           $p = Start-Process -FilePath publish\KitBuilder.exe -PassThru
           Start-Sleep -Seconds 20
-          if ($p.HasExited) { throw "KitBuilder.exe exited with code $($p.ExitCode)" }
-          $p.Refresh()
-          Write-Host "Running. Main window title: '$($p.MainWindowTitle)', memory: $([math]::Round($p.WorkingSet64 / 1MB)) MB"
-          if ([string]::IsNullOrEmpty($p.MainWindowTitle)) { Stop-Process -Id $p.Id -Force; throw "No main window was created" }
-          Stop-Process -Id $p.Id -Force
+          $failure = $null
+          if ($p.HasExited) { $failure = "KitBuilder.exe exited with code $($p.ExitCode) (0x$('{0:X8}' -f $p.ExitCode))" }
+          else {
+            $p.Refresh()
+            Write-Host "Running. Main window title: '$($p.MainWindowTitle)', memory: $([math]::Round($p.WorkingSet64 / 1MB)) MB"
+            if ([string]::IsNullOrEmpty($p.MainWindowTitle)) { $failure = "No main window was created" }
+            Stop-Process -Id $p.Id -Force
+          }
+          Write-Host "---- app.log ----"
+          if (Test-Path $log) { Get-Content $log } else { Write-Host "(no log file)" }
+          if ($failure) {
+            Write-Host "---- Windows event log ----"
+            Get-WinEvent -FilterHashtable @{ LogName = 'Application'; StartTime = (Get-Date).AddMinutes(-5) } -ErrorAction SilentlyContinue |
+              Where-Object { $_.ProviderName -in '.NET Runtime', 'Application Error', 'Windows Error Reporting' } |
+              Select-Object -First 5 | ForEach-Object { Write-Host $_.ProviderName; Write-Host $_.Message }
+            throw $failure
+          }
       - uses: actions/upload-artifact@v6
         with:
           name: KitBuilder-win-x64
