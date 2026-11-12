@@ -1,0 +1,119 @@
+<Page
+    x:Class="KitBuilder.App.Pages.KitBuilderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:KitBuilder.App"
+    xmlns:p="using:KitBuilder.Presentation">
+    <Grid Padding="24" ColumnSpacing="24">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Inputs -->
+        <ScrollViewer Grid.Column="0">
+            <StackPanel Spacing="14">
+                <TextBlock Text="Montar kit" Style="{StaticResource TitleTextBlockStyle}" />
+
+                <ToggleSwitch Header="Cor" OnContent="Quero uma cor" OffContent="Sem preferência de cor"
+                              IsOn="{x:Bind ViewModel.UseColor, Mode=TwoWay}" />
+                <ColorPicker x:Name="Picker" IsAlphaEnabled="False" IsMoreButtonVisible="False" IsColorChannelTextInputVisible="False"
+                             IsHexInputVisible="True" ColorSpectrumShape="Ring" ColorChanged="OnColorChanged"
+                             Visibility="{x:Bind app:Ui.Show(ViewModel.UseColor), Mode=OneWay}" />
+                <Slider Header="Tolerância de cor (estrito ↔ livre)" Minimum="0" Maximum="1" StepFrequency="0.05"
+                        Value="{x:Bind ViewModel.ColorTolerance, Mode=TwoWay}"
+                        Visibility="{x:Bind app:Ui.Show(ViewModel.UseColor), Mode=OneWay}" />
+
+                <NumberBox Header="Orçamento (R$)" Minimum="0" SmallChange="10" LargeChange="100" SpinButtonPlacementMode="Inline"
+                           Value="{x:Bind ViewModel.Budget, Mode=TwoWay}" />
+                <Slider Header="Margem do orçamento (%)" Minimum="0" Maximum="30" StepFrequency="1"
+                        Value="{x:Bind ViewModel.BudgetTolerancePercent, Mode=TwoWay}" />
+
+                <TextBlock Text="Itens do kit" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                <ItemsControl ItemsSource="{x:Bind ViewModel.Slots}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="p:SlotToggle">
+                            <CheckBox Content="{x:Bind Label}" IsChecked="{x:Bind IsEnabled, Mode=TwoWay}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <CheckBox Content="Aceitar StatTrak™" IsChecked="{x:Bind ViewModel.AllowStatTrak, Mode=TwoWay}" />
+                <CheckBox Content="Aceitar Souvenir" IsChecked="{x:Bind ViewModel.AllowSouvenir, Mode=TwoWay}" />
+
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button Content="Montar kit" Style="{StaticResource AccentButtonStyle}" Command="{x:Bind ViewModel.GenerateCommand}" />
+                    <Button Content="Gerar outra combinação" Command="{x:Bind ViewModel.GenerateAnotherCommand}" />
+                </StackPanel>
+                <ProgressBar IsIndeterminate="True" Visibility="{x:Bind app:Ui.Show(ViewModel.IsBusy), Mode=OneWay}" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Result -->
+        <Grid Grid.Column="1" RowSpacing="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="16" VerticalAlignment="Bottom">
+                <TextBlock Text="{x:Bind ViewModel.TotalText, Mode=OneWay}" FontSize="40" FontWeight="Bold" />
+                <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,8">
+                    <TextBlock Text="{x:Bind ViewModel.DeltaText, Mode=OneWay}" />
+                    <TextBlock Text="{x:Bind ViewModel.BudgetStateText, Mode=OneWay}" Opacity="0.7" />
+                </StackPanel>
+            </StackPanel>
+            <InfoBar Grid.Row="1" IsOpen="True" IsClosable="False" Severity="Warning"
+                     Message="{x:Bind ViewModel.ProblemMessage, Mode=OneWay}"
+                     Visibility="{x:Bind app:Ui.ShowText(ViewModel.ProblemMessage), Mode=OneWay}" />
+            <GridView Grid.Row="2" ItemsSource="{x:Bind ViewModel.Picks}" SelectionMode="None">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="p:PickViewModel">
+                        <Grid Width="250" Padding="12" RowSpacing="6" CornerRadius="16"
+                              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                              BorderBrush="{x:Bind app:Ui.Brush(Visual.RarityColorHex)}" BorderThickness="0,0,0,4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="130" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="{x:Bind SlotLabel}" Style="{StaticResource CaptionTextBlockStyle}" Opacity="0.7" />
+                            <Image Grid.Row="1" Source="{x:Bind app:Ui.Image(Visual.ImageUrl)}" Stretch="Uniform" />
+                            <TextBlock Grid.Row="2" Text="{x:Bind Name}" TextWrapping="Wrap" MaxLines="2" />
+                            <TextBlock Grid.Row="3" Text="{x:Bind PriceText}" FontSize="20" FontWeight="Bold" />
+                            <DropDownButton Grid.Row="4" Content="Alternativas" HorizontalAlignment="Stretch">
+                                <DropDownButton.Flyout>
+                                    <Flyout>
+                                        <ListView ItemsSource="{x:Bind Alternatives}" SelectionMode="None" IsItemClickEnabled="True"
+                                                  ItemClick="OnAlternativeClick" MaxHeight="360" Width="340">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate x:DataType="p:AlternativeViewModel">
+                                                    <Grid ColumnSpacing="8" Padding="0,4">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <StackPanel>
+                                                            <TextBlock Text="{x:Bind Name}" TextWrapping="Wrap" />
+                                                            <TextBlock Text="{x:Bind Hint}" Opacity="0.6" Style="{StaticResource CaptionTextBlockStyle}" />
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                                                            <TextBlock Text="{x:Bind PriceText}" HorizontalAlignment="Right" />
+                                                            <TextBlock Text="{x:Bind DeltaText}" HorizontalAlignment="Right" FontWeight="SemiBold" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Flyout>
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </Grid>
+    </Grid>
+</Page>
