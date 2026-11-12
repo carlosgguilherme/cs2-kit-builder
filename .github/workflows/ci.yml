@@ -41,7 +41,8 @@ jobs:
         shell: pwsh
         run: |
           $log = "$env:LOCALAPPDATA\KitBuilder\logs\app.log"
-          $p = Start-Process -FilePath publish\KitBuilder.exe -PassThru
+          $p = Write-Host "Resource files: $((Get-ChildItem publish -Filter *.pri).Name -join ", ")"
+          $p = Start-Process -FilePath publish\KitBuilder.App.exe -PassThru
           Start-Sleep -Seconds 20
           $failure = $null
           if ($p.HasExited) { $failure = "KitBuilder.App.exe exited with code $($p.ExitCode) (0x$('{0:X8}' -f $p.ExitCode))" }
