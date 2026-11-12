@@ -35,8 +35,24 @@ jobs:
       - uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.0.x
-      - name: Build app
-        run: dotnet build windows/src/KitBuilder.App/KitBuilder.App.csproj -c Release -p:Platform=x64
+      - name: Publish app
+        run: dotnet publish windows/src/KitBuilder.App/KitBuilder.App.csproj -c Release -p:Platform=x64 -o publish
+      - name: Smoke test (the app starts and stays open)
+        shell: pwsh
+        run: |
+          $env:LOCALAPPDATA = "$env:RUNNER_TEMP\appdata"
+          $p = Start-Process -FilePath publish\KitBuilder.exe -PassThru
+          Start-Sleep -Seconds 20
+          if ($p.HasExited) { throw "KitBuilder.exe exited with code $($p.ExitCode)" }
+          $p.Refresh()
+          Write-Host "Running. Main window title: '$($p.MainWindowTitle)', memory: $([math]::Round($p.WorkingSet64 / 1MB)) MB"
+          if ([string]::IsNullOrEmpty($p.MainWindowTitle)) { Stop-Process -Id $p.Id -Force; throw "No main window was created" }
+          Stop-Process -Id $p.Id -Force
+      - uses: actions/upload-artifact@v6
+        with:
+          name: KitBuilder-win-x64
+          path: publish
+          retention-days: 14
 
   pipeline:
     name: Data pipeline tests
