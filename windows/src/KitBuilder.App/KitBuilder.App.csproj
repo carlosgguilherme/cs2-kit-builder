@@ -5,12 +5,13 @@
     <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>KitBuilder.App</RootNamespace>
-    <AssemblyName>KitBuilder</AssemblyName>
     <Platforms>x64</Platforms>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <UseWinUI>true</UseWinUI>
     <!-- Unpackaged, self-contained Windows App SDK (installed and updated with Velopack in phase 4). -->
     <WindowsPackageType>None</WindowsPackageType>
+    <!-- Required so the XAML resources (.pri) are generated and published for an unpackaged app. -->
+    <EnableMsixTooling>true</EnableMsixTooling>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <!-- Generated XAML code can raise warnings we do not control. -->
